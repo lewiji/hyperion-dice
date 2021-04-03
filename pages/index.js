@@ -79,7 +79,7 @@ function HomePage() {
         };
         fb.set(fbData);
         setSelectedDice({});
-        document.getElementById("topresult")?.scrollIntoView( );
+        document.getElementById("top_result")?.scrollIntoView( );
     }, [fb]);
 
     const doReset = useCallback(() => {

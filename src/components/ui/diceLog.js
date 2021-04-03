@@ -10,7 +10,7 @@ function DiceLog({results, reset, props}) {
 
     useEffect(() => {
         if (results !== undefined) {
-            setLog([results, ...log].slice(0, 10))
+            setLog([...log, results].slice(-3))
         }
     }, [results]);
 
@@ -90,8 +90,8 @@ function DiceLog({results, reset, props}) {
                     despair: 0,
                     force: 0,
                 };
-                return <ResultCard key={`resultcard-${i}`} v={v} body={(r, i2) => (
-                    <Body key={`dice-${log.length - i}-${i2}`} id={i2} r={r}/>
+                return <ResultCard key={`result-card-${i}`} v={v} body={(r, i2, idx) => (
+                    <Body key={`dice-${i}-${i2}`} id={i2} r={r}/>
                 )} reducer={(acc, val) => {
                     return reducer(val, acc);
                 }} initialState={initialState}/>;

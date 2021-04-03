@@ -21,9 +21,9 @@ function renderDataHumanReadable(reduction) {
 
 function ResultCard({body, reducer, ...props}) {
     return <motion.div className={`p-2 bg-gradient-to-tl from-gray-900 to-indigo-900 rounded-lg my-4  overflow-hidden`}
-                       initial={{opacity: 0, y: -50}}
-                       animate={{opacity: 1, y: 0}}
-                       transition={{duration: 0.3}}
+                       initial={{opacity: 0, scaleY: 0}}
+                       animate={{opacity: 1, scaleY: 1}}
+                       transition={{duration: 0.4}}
     >
         <p className={"text-sm font-light ml-2"}>{props.v.name}</p>
         <div className={"flex flex-row flex-wrap justify-center my-2"}>
