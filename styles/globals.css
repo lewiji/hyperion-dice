@@ -39,6 +39,10 @@
         display: none;
     }
 
+    .dicegraphic {
+        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow-xl rounded bg-gradient-to-br m-2;
+    }
+
     .scrollbutnoscrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */

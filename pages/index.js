@@ -6,7 +6,7 @@ import {DiceSelectors} from "../components/dice/DiceSelectors";
 import RollButtons from "../components/ui/rollButtons";
 import MotionButton from "../components/motionButton";
 import QuickSelector from "../components/dice/quickselector";
-import AnimatedLogo from "../components/ui/animatedlogo";
+import rng_tools from "../utils/rng";
 
 function HomePage() {
     const fb = useFirebase({});
@@ -131,14 +131,13 @@ function HomePage() {
                 </div>
             </div>
         }
-        <AnimatedLogo />
     </>
 }
 
 function RollDice(name, maxVal, quantity) {
     const results = [];
     for (let i = 0; i < quantity; i++) {
-        results.push({type: name, value: Math.floor(Math.random() * maxVal)});
+        results.push({type: name, value: Math.floor(rng_tools.chance() * maxVal)});
     }
 
     return results;

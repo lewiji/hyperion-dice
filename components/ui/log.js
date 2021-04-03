@@ -8,9 +8,13 @@ function printData(reduction) {
     const triumph = reduction.triumph - reduction.despair;
     const force = reduction.force;
     let out = [];
+
+    if (triumph > 0) {
+        out.push(`${triumph} triumph`);
+    }
     if (success > -1) {
         out.push(`${success} success`);
-    } else {
+    } else if (triumph < 1) {
         out.push(`${Math.abs(success)} failure`);
     }
     if (advantage > 0) {
@@ -38,14 +42,14 @@ function ActionLog({results, reset, props}) {
     "overflow-auto  flex flex-col flex-col-reverse justify-end items-center"} id={"dice_log"}>
         {log?.map((v, i) => {
         return <div className={`p-2 bg-gray-900 rounded-lg my-1.5`}>
-            <p className={"text-sm font-light"}>{v.name}:</p>
-            <div className={"flex flex-row flex-wrap flex-row"}>
+            <p className={"text-sm font-light ml-2"}>{v.name}</p>
+            <div className={"grid grid-flow-row-dense grid-cols-6 gap-0.5"}>
                 {v.results?.map((r, i2) => (
                     <DiceGraphic key={`dice-${i + (i2 * i)}`} id={i2} r={r}/>
                 ))}
 
             </div>
-            <p className={"text-center p-1 bg-black"}>
+            <p className={"text-center p-1 bg-black rounded-lg"}>
                 {printData(v.results?.reduce((acc, val, idx) => {
                     const face = faces[val.type][val.value];
                     switch(face) {
