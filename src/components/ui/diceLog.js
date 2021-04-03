@@ -1,16 +1,16 @@
 import {useCallback, useEffect, useState} from "react";
 import Body from "../dice/body";
 import {faces} from "../../utils/mappings";
-import * as PropTypes from "prop-types";
 import ResultCard from "./resultCard";
+import {motion} from "framer-motion";
 
 
-function ActionLog({results, reset, props}) {
+function DiceLog({results, reset, props}) {
     const [log, setLog] = useState([]);
 
     useEffect(() => {
         if (results !== undefined) {
-            setLog([...log, results].slice(0, 10))
+            setLog([results, ...log].slice(0, 10))
         }
     }, [results]);
 
@@ -90,8 +90,8 @@ function ActionLog({results, reset, props}) {
                     despair: 0,
                     force: 0,
                 };
-                return <ResultCard v={v} body={(r, i2) => (
-                    <Body key={`dice-${i + (i2 * i)}`} id={i2} r={r}/>
+                return <ResultCard key={`resultcard-${i}`} v={v} body={(r, i2) => (
+                    <Body key={`dice-${log.length - i}-${i2}`} id={i2} r={r}/>
                 )} reducer={(acc, val) => {
                     return reducer(val, acc);
                 }} initialState={initialState}/>;
@@ -99,4 +99,4 @@ function ActionLog({results, reset, props}) {
         </div>);
 }
 
-export default ActionLog;
+export default DiceLog;

@@ -13,8 +13,8 @@
     }
 
     .dice_log {
-        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-6 mx-auto bg-gray-600 py-0.5  bg-opacity-10 rounded h-auto
-        overflow-auto flex flex-col flex-col-reverse justify-end md:items-end;
+        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-10 mx-auto bg-gray-900 py-0.5 bg-opacity-10 rounded
+        max-h-96 md:max-h-screen md:h-auto overflow-auto;
     }
 
     .scrollbutnoscrollbar::-webkit-scrollbar {

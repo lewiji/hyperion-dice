@@ -1,4 +1,6 @@
 import * as PropTypes from "prop-types";
+import {memo} from "react";
+import {motion} from "framer-motion";
 
 function renderDataHumanReadable(reduction) {
     const success = reduction.success - reduction.failure;
@@ -17,15 +19,19 @@ function renderDataHumanReadable(reduction) {
     return `${out.join(", ")}`;
 }
 
-export default function ResultCard({body, reducer, ...props}) {
-    return <div className={`p-2 bg-gradient-to-tl from-gray-900 to-indigo-900 rounded-lg my-4 overflow-hidden`}>
+function ResultCard({body, reducer, ...props}) {
+    return <motion.div className={`p-2 bg-gradient-to-tl from-gray-900 to-indigo-900 rounded-lg my-4  overflow-hidden`}
+                       initial={{opacity: 0, y: -50}}
+                       animate={{opacity: 1, y: 0}}
+                       transition={{duration: 0.3}}
+    >
         <p className={"text-sm font-light ml-2"}>{props.v.name}</p>
         <div className={"flex flex-row flex-wrap justify-center my-2"}>
             {props.v.results?.map(body)}
         </div>
         <p className={"text-center p-1 bg-black rounded-lg"}>
             {renderDataHumanReadable(props.v.results?.reduce(reducer, props.initialState))}</p>
-    </div>;
+    </motion.div>;
 }
 
 ResultCard.propTypes = {
@@ -42,3 +48,6 @@ ResultCard.propTypes = {
         despair: PropTypes.number
     })
 };
+
+const memoResultCard = memo(ResultCard);
+export default memoResultCard;

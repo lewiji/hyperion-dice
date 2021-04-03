@@ -1,11 +1,12 @@
 import {useCallback, useEffect, useState} from "react";
 import useFirebase from "../src/hooks/useFirebase";
-import ActionLog from "../src/components/ui/log";
 import Header from "../src/components/ui/header";
 import {MapDiceToManualSelectors} from "../src/components/dice/mapDiceToManualSelectors";
 import QuickSelectButton from "../src/components/dice/quickSelectButton";
 import rng_tools from "../src/utils/rng";
 import ButtonContainer from "../src/components/ui/buttonContainer";
+import DiceLog from "../src/components/ui/diceLog";
+
 function HomePage() {
     const fb = useFirebase({});
     const [name, setName] = useState();
@@ -78,7 +79,7 @@ function HomePage() {
         };
         fb.set(fbData);
         setSelectedDice({});
-        document.getElementById("dice_log").scrollIntoView();
+        document.getElementById("topresult")?.scrollIntoView( );
     }, [fb]);
 
     const doReset = useCallback(() => {
@@ -104,7 +105,7 @@ function HomePage() {
         {
             <div className={"flex flex-col md:flex-row"}>
                 <div className={"flex-grow md:w-4/12 -mt-4"}>
-                    <ActionLog results={result}/>
+                    <DiceLog results={result}/>
                 </div>
 
                 <div className={"md:w-6/12"}>
