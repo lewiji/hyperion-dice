@@ -1,16 +1,21 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
-  purge: [
-      './public/**/*.html',
-      './pages/**/*.{js,jsx,ts,tsx}',
-      './components/**/*.{js,jsx,ts,tsx}',
-      './utils/**/*.{js,jsx,ts,tsx}'
-  ],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+    purge: [
+        './public/**/*.html',
+        './pages/**/*.{js,jsx,ts,tsx}',
+        './src/**/*.{js,jsx,ts,tsx}'
+    ],
+    darkMode: false, // or 'media' or 'class'
+    theme: {
+        screens: {
+            'xs': '475px',
+            ...defaultTheme.screens,
+        },
+        extend: {},
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [],
 }
