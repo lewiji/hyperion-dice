@@ -3,7 +3,6 @@ import MotionButton from "../ui/motionButton";
 import {colours, dice} from "../../utils/mappings";
 
 export default function QuickSelectButton({addCallback, selectedDice, ...props}) {
-
     const quickAdd = useCallback((dice) => {
         if (addCallback) {
             addCallback(dice);
@@ -12,8 +11,11 @@ export default function QuickSelectButton({addCallback, selectedDice, ...props})
 
     const AddDice = useCallback(name => {
         return (
-            <MotionButton key={name} className={`my-2 md:my-5  md:mx-6 w-36 h-20 bg-gradient-to-br ${colours[name]} `}
-                          onClick={() => {quickAdd(name)}}
+            <MotionButton key={name}
+                          className={`my-2 mx-2 w-32 px-1 h-20 bg-gradient-to-br hover:bg-gradient-to-bl ${colours[name]} `}
+                          onClick={() => {
+                              quickAdd(name)
+                          }}
             >
                 {name}<br/> {selectedDice?.[name] ? selectedDice[name] : ''}
             </MotionButton>
@@ -21,10 +23,10 @@ export default function QuickSelectButton({addCallback, selectedDice, ...props})
     }, [selectedDice, quickAdd]);
 
     return (
-        <div className={"flex justify-center items-center flex-col"}>
-            <div className={"font-light text-sm mx-auto text-center"}>quick_selection:</div>
-            <div className="lg:w-7/12 mx-auto flex flex-row flex-wrap justify-evenly text-center">
+        <div className={"flex justify-center items-center flex-col -mt-8"}>
+            <div className="lg:w-7/12 mx-auto flex flex-row flex-wrap justify-center text-center">
                 {dice.map(d => AddDice(d))}
             </div>
-        </div>);
+        </div>
+    );
 }

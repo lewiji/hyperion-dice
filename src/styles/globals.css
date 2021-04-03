@@ -3,19 +3,36 @@
 @tailwind utilities;
 
 @layer components {
-
     /*noinspection ALL*/
     @font-face {
         font-family: 'EotE Symbol';
         src: url(/fonts/EotE_Symbol-Regular_v1.otf);
     }
-
-    .diceface {
+    .dice_face {
         font-family: 'EotE Symbol', serif;
     }
 
-    .dicelog {
-        @apply scrollbutnoscrollbar w-full mb-3 mx-auto bg-gray-600 py-0.5 px-3 bg-opacity-10 rounded h-80 md:h-full overflow-auto flex flex-col flex-col-reverse justify-end items-center;
+    .dice_log {
+        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-6 mx-auto bg-gray-600 py-0.5  bg-opacity-10 rounded h-auto
+        overflow-auto flex flex-col flex-col-reverse justify-end md:items-end;
+    }
+
+    .scrollbutnoscrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .dice_graphic {
+        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow-xl rounded
+        bg-gradient-to-br m-2;
+    }
+
+    .scrollbutnoscrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    hr {
+        @apply opacity-30 border-dotted border border-gray-800 w-9/12 mx-auto;
     }
 
     input {
@@ -31,25 +48,13 @@
     }
 
     button {
-        @apply border border-4 border-gray-900
+        @apply border border-gray-900
     }
 
     button:hover {
-        @apply shadow-2xl font-semibold ring-4 ring-offset-2 ring-black;
+        @apply shadow-2xl font-semibold ring-2 ring-offset-2 ring-black;
     }
     button:focus {
-        @apply focus:ring focus:ring-4 focus:ring-yellow-600 outline-none
-    }
-    .scrollbutnoscrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .dicegraphic {
-        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow-xl rounded bg-gradient-to-br m-2;
-    }
-
-    .scrollbutnoscrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        @apply focus:ring focus:ring-2 focus:ring-yellow-600 outline-none
     }
 }

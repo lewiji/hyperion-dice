@@ -25,8 +25,8 @@ export default function Body({id, ...props}) {
     return <motion.div
         initial={{opacity: 0, scale: 1.1, y: 16, x: -72, rotate: rotation}}
         animate={{opacity: 1, scale: 1, y: 0, x: 0, rotate: 360}}
-        transition={{type: 'spring', stiffness: 250, damping: 30, mass: 0.1, delay: id * 0.042}}
-        className={`dicegraphic ${colours[props.r.type]} ${`order-${order}`}`}
+        transition={{type: 'spring', stiffness: 250, damping: 14, mass: 0.5, delay: id * 0.042}}
+        className={`dice_graphic ${colours[props.r.type]} ${`order-${order}`}`}
     >
         <Face dice={props.r.type} result={props.r.value} setOrder={setOrder}/>
     </motion.div>;

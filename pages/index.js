@@ -2,12 +2,10 @@ import {useCallback, useEffect, useState} from "react";
 import useFirebase from "../src/hooks/useFirebase";
 import ActionLog from "../src/components/ui/log";
 import Header from "../src/components/ui/header";
-import {MapDiceToSelectors} from "../src/components/dice/mapDiceToSelectors";
-import RollButtons from "../src/components/ui/rollButtons";
-import MotionButton from "../src/components/ui/motionButton";
+import {MapDiceToManualSelectors} from "../src/components/dice/mapDiceToManualSelectors";
 import QuickSelectButton from "../src/components/dice/quickSelectButton";
 import rng_tools from "../src/utils/rng";
-
+import ButtonContainer from "../src/components/ui/buttonContainer";
 function HomePage() {
     const fb = useFirebase({});
     const [name, setName] = useState();
@@ -105,30 +103,18 @@ function HomePage() {
         <Header onNameChange={setName}/>
         {
             <div className={"flex flex-col md:flex-row"}>
-                <MotionButton
-                    className={`h-12 text-sm text-center bg-yellow-500 ${getNumSelectedDice() < 1 ? "bg-opacity-20 opacity-10" : "bg-opacity-60 opacity-70"} fixed right-3 bottom-8  z-40`}
-                    disabled={getNumSelectedDice() < 1}
-                    onClick={doReset}>RESET</MotionButton>
                 <div className={"flex-grow md:w-4/12 -mt-4"}>
-                    <div className={"font-light text-sm mx-auto text-center"}>results:</div>
                     <ActionLog results={result}/>
                 </div>
 
-                <div className={"md:w-7/12"}>
-                    <hr className={"opacity-20 my-2"}/>
-                    <div className="w-full mx-auto flex justify-around my-5">
-                        <RollButtons disabled={getNumSelectedDice() < 1} onRoll={doRoll} onReset={doReset}/>
-                    </div>
+                <div className={"md:w-6/12"}>
+                    <QuickSelectButton selectedDice={selectedDice} addCallback={setQuickAddDice}/>
 
-                    <hr className={"opacity-20 my-2"}/>
-                    <div>
-                        <QuickSelectButton selectedDice={selectedDice} addCallback={setQuickAddDice}/>
-                    </div>
+                    <MapDiceToManualSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice}
+                                              onChange={onDiceNumChanged}
+                                              onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
 
-                    <hr className={"opacity-20 my-2"}/>
-                    <MapDiceToSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice}
-                                        onChange={onDiceNumChanged}
-                                        onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
+                    <ButtonContainer numSelectedDice={getNumSelectedDice()} onRoll={doRoll} onReset={doReset}/>
                 </div>
             </div>
         }

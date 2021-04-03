@@ -1,23 +1,9 @@
 import {useCallback, useEffect, useState} from "react";
 import Body from "../dice/body";
 import {faces} from "../../utils/mappings";
+import * as PropTypes from "prop-types";
+import ResultCard from "./resultCard";
 
-function renderDataHumanReadable(reduction) {
-    const success = reduction.success - reduction.failure;
-    const advantage = reduction.advantage - reduction.threat;
-    const triumph = reduction.triumph - reduction.despair;
-    const force = reduction.force;
-    let out = [];
-
-    if (triumph > 0) out.push(`${triumph} triumph`);
-    if (force > 0) out.push(`${force} force`);
-    if (success > -1) out.push(`${success} success`);
-    else if (triumph < 1) out.push(`${Math.abs(success)} failure`)
-    if (advantage > 0) out.push(`${advantage} advantage`);
-    else if (advantage < 0) out.push(`${Math.abs(advantage)} threat`);
-
-    return `${out.join(", ")}`;
-}
 
 function ActionLog({results, reset, props}) {
     const [log, setLog] = useState([]);
@@ -93,7 +79,7 @@ function ActionLog({results, reset, props}) {
 
     return (
         <div
-            className={"dicelog"} id={"dice_log"}>
+            className={"dice_log"} id={"dice_log"}>
             {log?.map((v, i) => {
                 const initialState = {
                     success: 0,
@@ -104,19 +90,11 @@ function ActionLog({results, reset, props}) {
                     despair: 0,
                     force: 0,
                 };
-                return <div className={`p-2 bg-gray-900 rounded-lg my-1.5`}>
-                    <p className={"text-sm font-light ml-2"}>{v.name}</p>
-                    <div className={"grid grid-flow-row-dense grid-cols-6 gap-0.5"}>
-                        {v.results?.map((r, i2) => (
-                            <Body key={`dice-${i + (i2 * i)}`} id={i2} r={r}/>
-                        ))}
-
-                    </div>
-                    <p className={"text-center p-1 bg-black rounded-lg"}>
-                        {renderDataHumanReadable(v.results?.reduce((acc, val) => {
-                            return reducer(val, acc);
-                        }, initialState))}</p>
-                </div>;
+                return <ResultCard v={v} body={(r, i2) => (
+                    <Body key={`dice-${i + (i2 * i)}`} id={i2} r={r}/>
+                )} reducer={(acc, val) => {
+                    return reducer(val, acc);
+                }} initialState={initialState}/>;
             })}
         </div>);
 }
