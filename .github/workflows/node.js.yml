@@ -25,5 +25,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    - run: npm install 
+    - name: create-json
+      # You may pin to the exact commit or the version.
+      # uses: jsdaniell/create-json@4a4e510bf85e1193b9fca74074d2bf4ee26de08c
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        # The name of the file to be written. | file.json 
+        name: firebase-config.json
+        # The json string that can be a secret of the github repo or a string of a json. | "{"title": "my json"}" 
+        json: '{"apiKey":"${{ secrets.FB_API_KEY }}", "authDomain":"${{ secrets.FB_AUTH_DOMAIN }}", "databaseURL":"${{ secrets.FB_DB_URL }}", "projectId":"${{ secrets.FB_PROJECT_ID }}", "storageBucket":"${{ secrets.FB_STORAGE_BUCKET }}", "messagingSenderId":"${{ secrets.FB_MSG_SENDER }}","appId":"${{ secrets.FB_APP_ID }}"}'
     - run: npm run build --if-present
