@@ -1,11 +1,12 @@
-import {useEffect, useReducer, useState} from "react";
-import useFirebase from "../../hooks/useFirebase";
-import MotionButton from "../motionButton";
-import {motion, useAnimation} from "framer-motion";
+import {useEffect, useReducer} from "react";
+import MotionButton from "../ui/motionButton";
+import {motion} from "framer-motion";
 import {colours} from "../../utils/mappings";
 
 export default function DiceSelector({dice, quickAdd, onChange, index, PageProps}) {
-    const [state, dispatch] = useReducer(reducer, initialState, (({numDice})=> {return {...initialState, ...numDice}}));
+    const [state, dispatch] = useReducer(reducer, initialState, (({numDice}) => {
+        return {...initialState, ...numDice}
+    }));
     useEffect(() => {
         if (quickAdd !== undefined && quickAdd === dice) {
             dispatch({type: 'increment'})

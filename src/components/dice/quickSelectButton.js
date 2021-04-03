@@ -1,8 +1,8 @@
-import {useCallback, useReducer} from "react";
-import MotionButton from "../motionButton";
+import {useCallback} from "react";
+import MotionButton from "../ui/motionButton";
 import {colours, dice} from "../../utils/mappings";
 
-export default function QuickSelector({addCallback, selectedDice, ...props}) {
+export default function QuickSelectButton({addCallback, selectedDice, ...props}) {
 
     const quickAdd = useCallback((dice) => {
         if (addCallback) {

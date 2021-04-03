@@ -1,10 +1,10 @@
 import {colours} from "../../utils/mappings";
-import DiceFace from "./diceface";
+import Face from "./face";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 
-export default function DiceGraphic({id, ...props}) {
+export default function Body({id, ...props}) {
     const [order, setOrder] = useState(0);
     const [rotation, setRotation] = useState();
     useEffect(() => {
@@ -13,8 +13,7 @@ export default function DiceGraphic({id, ...props}) {
             setRotation(0);
         } else if (chance < 0.5) {
             setRotation(90);
-        }
-        else if (chance < 0.75) {
+        } else if (chance < 0.75) {
             setRotation(180);
         } else if (chance <= 1) {
             setRotation(270);
@@ -24,13 +23,13 @@ export default function DiceGraphic({id, ...props}) {
     }, []);
     if (rotation === undefined) return null;
     return <motion.div
-        initial={{opacity: 0, scale: 2, y: rotation / 2, x: 30, rotate: rotation}}
+        initial={{opacity: 0, scale: 1.1, y: 16, x: -72, rotate: rotation}}
         animate={{opacity: 1, scale: 1, y: 0, x: 0, rotate: 360}}
-        transition={{type: 'spring', stiffness: 250, damping: 30, mass: 0.3,  delay: id * 0.064}}
+        transition={{type: 'spring', stiffness: 250, damping: 30, mass: 0.1, delay: id * 0.042}}
         className={`dicegraphic ${colours[props.r.type]} ${`order-${order}`}`}
     >
-        <DiceFace dice={props.r.type} result={props.r.value} setOrder={setOrder}/>
+        <Face dice={props.r.type} result={props.r.value} setOrder={setOrder}/>
     </motion.div>;
 }
 
-DiceGraphic.propTypes = {r: PropTypes.any};
+Body.propTypes = {r: PropTypes.any};

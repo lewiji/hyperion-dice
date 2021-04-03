@@ -1,4 +1,4 @@
-import Logo from "./ui/logo";
+import Logo from "./logo";
 import {PlayerDetails} from "./playerDetails";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
@@ -34,6 +34,6 @@ function Header({onNameChange, ...props}) {
     </motion.div>;
 }
 
-Header.propTypes = {onChange: PropTypes.func};
+Header.propTypes = {onNameChange: PropTypes.func};
 
 export default Header;

@@ -1,12 +1,12 @@
 import {useCallback, useEffect, useState} from "react";
-import useFirebase from "../hooks/useFirebase";
-import ActionLog from "../components/ui/log";
-import Header from "../components/header";
-import {DiceSelectors} from "../components/dice/DiceSelectors";
-import RollButtons from "../components/ui/rollButtons";
-import MotionButton from "../components/motionButton";
-import QuickSelector from "../components/dice/quickselector";
-import rng_tools from "../utils/rng";
+import useFirebase from "../src/hooks/useFirebase";
+import ActionLog from "../src/components/ui/log";
+import Header from "../src/components/ui/header";
+import {MapDiceToSelectors} from "../src/components/dice/mapDiceToSelectors";
+import RollButtons from "../src/components/ui/rollButtons";
+import MotionButton from "../src/components/ui/motionButton";
+import QuickSelectButton from "../src/components/dice/quickSelectButton";
+import rng_tools from "../src/utils/rng";
 
 function HomePage() {
     const fb = useFirebase({});
@@ -122,12 +122,13 @@ function HomePage() {
 
                     <hr className={"opacity-20 my-2"}/>
                     <div>
-                        <QuickSelector selectedDice={selectedDice} addCallback={setQuickAddDice}/>
+                        <QuickSelectButton selectedDice={selectedDice} addCallback={setQuickAddDice}/>
                     </div>
 
                     <hr className={"opacity-20 my-2"}/>
-                    <DiceSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice} onChange={onDiceNumChanged}
-                                   onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
+                    <MapDiceToSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice}
+                                        onChange={onDiceNumChanged}
+                                        onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
                 </div>
             </div>
         }

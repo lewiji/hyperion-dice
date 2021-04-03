@@ -1,4 +1,4 @@
-import MotionButton from "../motionButton";
+import MotionButton from "./motionButton";
 import * as PropTypes from "prop-types";
 
 export default function RollButtons({onRoll, onReset, floating, disabled, ...props}) {

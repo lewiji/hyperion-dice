@@ -4,13 +4,18 @@
 
 @layer components {
 
+    /*noinspection ALL*/
     @font-face {
         font-family: 'EotE Symbol';
-        src: url('/fonts/EotE_Symbol-Regular_v1.otf');
+        src: url(/fonts/EotE_Symbol-Regular_v1.otf);
     }
 
     .diceface {
-        font-family: 'EotE Symbol';
+        font-family: 'EotE Symbol', serif;
+    }
+
+    .dicelog {
+        @apply scrollbutnoscrollbar w-full mb-3 mx-auto bg-gray-600 py-0.5 px-3 bg-opacity-10 rounded h-80 md:h-full overflow-auto flex flex-col flex-col-reverse justify-end items-center;
     }
 
     input {

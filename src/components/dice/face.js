@@ -1,8 +1,8 @@
-import {faces, faceToLetter} from "../../utils/mappings";
+import {faces} from "../../utils/mappings";
 import {useEffect, useState} from "react";
 
 
-export default function DiceFace({dice, result, setOrder, ...props}) {
+export default function Face({dice, result, setOrder, ...props}) {
     const [letter, setLetter] = useState('');
     const [importance, setImportance] = useState(0);
     useEffect(() => {
