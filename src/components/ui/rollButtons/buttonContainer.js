@@ -32,7 +32,7 @@ const variants = {
 export default function ButtonContainer({onRoll}) {
     const disabled = useIsSelectionEmpty();
     return (
-        <motion.div variants={variants} initial={"initial"} animate={disabled ? "disabled" : "enabled"} exit={"exit"}
+        <motion.div variants={variants} initial={"initial"} animate={disabled ? "disabled" : "animate"} exit={"exit"}
                     className="fixed bottom-0 left-0 w-full mx-auto flex justify-center gap-x-4 pb-8 items-end mt-5 z-50 bg-gradient-to-b
                     from-transparent to-black via-gray-900">
             <RollButton onRoll={onRoll}/>

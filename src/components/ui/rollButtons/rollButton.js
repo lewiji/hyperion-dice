@@ -6,9 +6,11 @@ import {motion} from "framer-motion";
 const variants = {
     initial: {
         opacity: 0,
+        scale: 0,
     },
     animate: {
         opacity: 1,
+        scale: 1,
         transition: {
             type: "spring",
             stiffness: 300,
@@ -17,10 +19,12 @@ const variants = {
         }
     },
     disabled: {
+        scale: 0,
         opacity: 1
     },
     exit: {
         y: 190,
+        scale: 0,
         opacity: 0,
     }
 }

@@ -42,7 +42,7 @@ function HomePage() {
 
     return <>
         <Header onNameChange={setName}/>
-        <div className={`flex flex-col md:flex-row ${(name === undefined || name === '' || name?.length < 1) ? 'invisible' : ''}`}>
+        {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
             <div className={"flex-grow md:w-4/12 -mt-4"}>
                 <Results results={result}/>
             </div>
@@ -54,7 +54,7 @@ function HomePage() {
 
                 <ButtonContainer onRoll={doRoll}/>
             </div>
-        </div>
+        </div>)}
     </>;
 }
 

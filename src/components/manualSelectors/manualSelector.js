@@ -6,7 +6,7 @@ import {useCallback} from "react";
 
 const variants = {
     initial: {x: -20, y: -15, scale: 0},
-    animate: {x: 0, sizeY: 52, opacity: 1},
+    animate: {x: 0, y: 0, scale: 1, opacity: 1},
     exit: {x: -8, y: -4, scale: 0},
 }
 
