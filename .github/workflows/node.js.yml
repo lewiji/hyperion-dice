@@ -1,8 +1,5 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
+# exports next.js project to static site, and deploys exported files to S3
 name: Node.js CI
-
 on:
   push:
     branches: [ main ]
@@ -21,19 +18,15 @@ jobs:
         node-version: [15.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js v15.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install 
+        node-version: 15.x
+    - run: npm ci
     - name: create-json
-      # You may pin to the exact commit or the version.
-      # uses: jsdaniell/create-json@4a4e510bf85e1193b9fca74074d2bf4ee26de08c
       uses: jsdaniell/create-json@1.1.2
       with:
-        # The name of the file to be written. | file.json 
         name: firebase-config.json
-        # The json string that can be a secret of the github repo or a string of a json. | "{"title": "my json"}" 
         json: '{"apiKey":"${{ secrets.FB_API_KEY }}", "authDomain":"${{ secrets.FB_AUTH_DOMAIN }}", "databaseURL":"${{ secrets.FB_DB_URL }}", "projectId":"${{ secrets.FB_PROJECT_ID }}", "storageBucket":"${{ secrets.FB_STORAGE_BUCKET }}", "messagingSenderId":"${{ secrets.FB_MSG_SENDER }}","appId":"${{ secrets.FB_APP_ID }}"}'
     - run: npm run build --if-present
     - name: deploy
