@@ -5,9 +5,9 @@ import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDic
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
 import Results from "../src/components/results/results";
-import {SelectedDiceProvider, useSelectedDice} from "../src/providers/selectedDiceContext";
+import {useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
-import {AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {numSides} from "../src/utils/mappings";
 
 function HomePage() {
@@ -29,22 +29,17 @@ function HomePage() {
             });
             setFbSubscribed(true);
 
-            return () => {
-                fb.off('value')
-            };
+            /* return () => {
+                 fb.off('value')
+             };*/
         }
     }, [fb, fbSubscribed]);
 
     const doRoll = useCallback(() => {
-        console.log("rolling");
         if (Object.values(selectedDice).filter(v => v > 0).length === 0) return;
-        console.log("dice selected:")
-        console.log(selectedDice);
-        const orderedDice = Object.entries(selectedDice).reverse();
-        const results = orderedDice.reduce((acc, [k, v]) => {
+        const results = Object.entries(selectedDice).reduce((acc, [k, v]) => {
             return [...acc, ...RollDice(k, numSides[k], v)]
         }, []);
-        console.log(results);
         fb.set({name, selectedDice, results});
         dispatch({type: "reset"});
         document.getElementById("top_result")?.scrollIntoView();
@@ -55,7 +50,11 @@ function HomePage() {
 
         <AnimatePresence>
             {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
-                <div className={"flex-grow md:w-4/12 -mt-4"}>
+                <div className={"flex-grow md:w-4/12"}>
+                    <motion.div animate={{opacity: 1, scaleX: 0.92}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}}
+                                transition={{duration: 0.12}} className={"component_title"}>
+                        _results
+                    </motion.div>
                     <Results results={result}/>
                 </div>
 

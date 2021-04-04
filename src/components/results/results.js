@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import Body from "../dice/body";
 import {faces} from "../../utils/mappings";
-import ResultCard from "../ui/resultCard";
+import ResultCard from "./resultCard";
 import RollReducer from "./rollReducer";
 
 
@@ -10,7 +10,7 @@ function Results({results, reset}) {
 
     useEffect(() => {
         if (results !== undefined) {
-            setLog([...log, results].slice(-3))
+            setLog([results, ...log,]);
         }
     }, [results]);
 
@@ -37,8 +37,8 @@ function Results({results, reset}) {
                     despair: 0,
                     force: 0,
                 };
-                return <ResultCard key={`result-card-${i}`} v={v} body={(r, i2) => (
-                    <Body key={`dice-${i}-${i2}`} id={i2} r={r}/>
+                return <ResultCard key={`result-card-${(log.length - 1) - i}`} v={v} body={(r, i2) => (
+                    <Body key={`dice-${(log.length - 1) - i}-${i2}`} id={i2} r={r}/>
                 )} reducer={(acc, val) => {
                     return reducer(acc, val);
                 }} initialState={initialState}/>;
