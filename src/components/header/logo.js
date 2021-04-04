@@ -2,19 +2,21 @@ import {motion} from 'framer-motion'
 
 const variants = {
     initial: {x: 0, sizeY: 128, opacity: 0},
-    unnamed: {x: 0, sizeY: 64, opacity: 1},
-    named: {x: 0, sizeY: 64, opacity: 1},
+    animate: {x: 0, sizeY: 52, opacity: 1},
+    exit: {x: 0, sizeY: 0, opacity: 0},
 }
 
 
 function Logo({named}) {
     return (<motion.div
-        variants={variants} animate={named ? "named" : "unnamed"} initial={"initial"}
-        transition={{duration: 1}}
+        layout
+        variants={variants}
+        animate={"animate"}
+        initial={"initial"}
+        exit={"exit"}
+        transition={{duration: 0.5}}
         className="h-32 w-80 bg-cover bg-center"
-        style={{backgroundImage: `url("/logo.svg")`}}>
-        &nbsp;
-    </motion.div>);
+        style={{backgroundImage: `url("/logo.svg")`}}/>);
 }
 
 export default Logo

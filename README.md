@@ -13,9 +13,9 @@ credentials in `firebase-config.json` and build/export with `yarn build`
 * Easy to use, colourful UI to quickly select combinations of dice
   * motion-framer, next.js, tailwind
 * Full visual readout of dice plus quick summary of total success/failure, advantage/disadvantage
-* Tailwind JIT and next.js export = small exported static bundle size (<2kb downloaded to browser)
+* Tailwind JIT and next.js export = small exported static files
 * See other currently connected players rolls in realtime
-    * via Firebase Realtime DB
+  * via Firebase Realtime DB
   
 ## Screenshot
 

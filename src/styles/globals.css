@@ -30,15 +30,15 @@
     }
 
     button:hover {
-        @apply shadow-2xl ring-2 ring-purple-400 ring-opacity-50;
+        @apply shadow-2xl ring ring-indigo-600;
     }
 
     button:focus {
-        @apply focus:ring focus:ring-2 focus:ring-yellow-600 outline-none;
+        @apply focus:ring focus:ring focus:ring-indigo-500 outline-none;
     }
 
     .manual_selector {
-        @apply bg-gradient-to-br from-gray-800 to-gray-900 z-20 px-3 border border-black;
+        @apply bg-gradient-to-br from-gray-900 to-black via-gray-900 z-20 px-3 border border-black;
     }
 
     .component_title {
