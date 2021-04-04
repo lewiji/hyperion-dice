@@ -30,7 +30,7 @@
     }
 
     button:hover {
-        @apply shadow-2xl ring-2 ring-offset-2 ring-black;
+        @apply shadow-2xl ring-2 ring-purple-400 ring-opacity-50;
     }
 
     button:focus {
