@@ -3,7 +3,7 @@ import useFirebase from "../src/hooks/useFirebase";
 import Header from "../src/components/header/header";
 import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDiceToManualSelectors";
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
-import ButtonContainer from "../src/components/rollButtons/buttonContainer";
+import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
 import Results from "../src/components/results/results";
 import {useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
@@ -42,7 +42,6 @@ function HomePage() {
 
     return <>
         <Header onNameChange={setName}/>
-
         <div className={`flex flex-col md:flex-row ${(name === undefined || name === '' || name?.length < 1) ? 'invisible' : ''}`}>
             <div className={"flex-grow md:w-4/12 -mt-4"}>
                 <Results results={result}/>

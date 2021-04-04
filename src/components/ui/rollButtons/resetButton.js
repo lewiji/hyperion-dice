@@ -1,7 +1,7 @@
-import MotionButton from "../ui/motionButton";
+import MotionButton from "../motionButton";
 import * as PropTypes from "prop-types";
-import {useSelectedDice} from "../../providers/selectedDiceContext";
-import useIsSelectionEmpty from "../../hooks/useIsSelectionEmpty";
+import {useSelectedDice} from "../../../providers/selectedDiceContext";
+import useIsSelectionEmpty from "../../../hooks/useIsSelectionEmpty";
 
 
 export default function ResetButton() {

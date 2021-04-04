@@ -10,10 +10,14 @@ const variantsWithOrchestration = {
 
 function MyApp({Component, pageProps}) {
     return (
-        <motion.main key={"parent"} variants={variantsWithOrchestration}
+        <motion.main key={"parent"}
+                     variants={variantsWithOrchestration}
+                     initial={"initial"}
+                     animate={"animate"}
+                     exit={"exit"}
                      className={"bg-black w-full h-screen text-white container mx-auto"}>
             <SelectedDiceProvider>
-                <AnimatePresence exitBeforeEnter={true}>
+                <AnimatePresence>
                     <AnimateSharedLayout>
                         <Component {...pageProps} />
                     </AnimateSharedLayout>

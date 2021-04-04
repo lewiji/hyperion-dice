@@ -16,7 +16,7 @@ function Header({onNameChange, ...props}) {
     useEffect(() => {
         onNameChange(name);
     }, [name]);
-    return <motion.div variants={variants} animate={name === '' ? "unnamed" : "named"} initial={"initial"} exit={"exit"}
+    return <motion.div variants={variants} animate={name === '' ? "animate" : "named"} initial={"initial"} exit={"exit"}
                        transition={{type: 'spring', stiffness: 150, damping: 20, mass: 1}}
                        className={"flex w-full items-center justify-evenly flex-row"}>
         <Logo named={name !== ''}/>
