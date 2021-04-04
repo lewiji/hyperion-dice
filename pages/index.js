@@ -5,7 +5,7 @@ import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDic
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import rng_tools from "../src/utils/rng";
 import ButtonContainer from "../src/components/rollButtons/buttonContainer";
-import DiceLog from "../src/components/log/diceLog";
+import Results from "../src/components/results/results";
 import {useSelectedDice} from "../src/providers/selectedDiceContext";
 
 function HomePage() {
@@ -79,7 +79,7 @@ function HomePage() {
         {
             <div className={"flex flex-col md:flex-row"}>
                 <div className={"flex-grow md:w-4/12 -mt-4"}>
-                    <DiceLog results={result}/>
+                    <Results results={result}/>
                 </div>
 
                 <div className={"md:w-6/12"}>

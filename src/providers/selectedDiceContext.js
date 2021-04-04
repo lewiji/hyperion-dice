@@ -21,9 +21,8 @@ function selectedDiceReducer(state, action) {
             if (typeof dice_type === "string" && state[dice_type] !== undefined) {
                 const newVal = Math.max(0, state[dice_type] - 1);
                 return {...state, [dice_type]: newVal};
-            } else {
-                throw new Error(`Unknown dice type: ${action.payload}`);
             }
+            return state;
         }
         case 'reset': {
             return {};

@@ -8,27 +8,9 @@
         font-family: 'EotE Symbol';
         src: url(/fonts/EotE_Symbol-Regular_v1.otf);
     }
-    .dice_face {
-        font-family: 'EotE Symbol', serif;
-    }
 
-    .dice_log {
-        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-10 mx-auto bg-gray-900 py-0.5 bg-opacity-10 rounded
-         md:max-h-screen md:h-auto overflow-auto flex flex-col flex-col-reverse;
-    }
-
-    .scrollbutnoscrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .dice_graphic {
-        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow-xl rounded
-        bg-gradient-to-br m-2;
-    }
-
-    .scrollbutnoscrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+    body {
+        background-color: black;
     }
 
     hr {
@@ -43,18 +25,48 @@
         @apply rounded-2xl px-3;
     }
 
-    body {
-        background-color: black;
-    }
-
     button {
         @apply border border-gray-900
     }
 
     button:hover {
-        @apply shadow-2xl font-semibold ring-2 ring-offset-2 ring-black;
+        @apply shadow-2xl ring-2 ring-offset-2 ring-black;
     }
+
     button:focus {
-        @apply focus:ring focus:ring-2 focus:ring-yellow-600 outline-none
+        @apply focus:ring focus:ring-2 focus:ring-yellow-600 outline-none;
+    }
+
+    .manual_selector {
+        @apply bg-gradient-to-br from-gray-800 to-gray-900 z-20 px-3 border border-black;
+    }
+
+    .component_title {
+        @apply w-full text-right pr-4 py-0.5 my-2 text-sm font-mono shadow font-light rounded shadow
+        transition transition-opacity opacity-70 hover:opacity-90
+        select-none bg-gradient-to-tl from-gray-800 via-gray-900;
+    }
+
+    .dice_face {
+        font-family: 'EotE Symbol', serif;
+    }
+
+    .dice_log {
+        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-10 mx-auto bg-gray-900 py-0.5 bg-opacity-10 rounded
+        md:max-h-screen md:h-auto overflow-auto flex flex-col flex-col-reverse;
+    }
+
+    .scrollbutnoscrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .dice_graphic {
+        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow-xl rounded
+        bg-gradient-to-br m-2;
+    }
+
+    .scrollbutnoscrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
 }

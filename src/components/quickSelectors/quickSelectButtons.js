@@ -1,12 +1,13 @@
 import {dice} from "../../utils/mappings";
 import QuickSelectButton from "./quickSelectButton";
 
-export default function QuickSelectButtons({selectedDice, ...props}) {
-    return (
-        <div className={"flex justify-center items-center flex-col -mt-8"}>
+export default function QuickSelectButtons({selectedDice}) {
+    return (<>
+        <p className={"component_title"}>_quick_select</p>
+        <div className={"flex justify-center items-center flex-col"}>
             <div className="lg:w-7/12 mx-auto flex flex-row flex-wrap justify-center text-center">
-                {dice.map(d => <QuickSelectButton key={d} name={d}/>)}
+                {dice.map((d, i) => <QuickSelectButton key={d} name={d} index={i}/>)}
             </div>
         </div>
-    );
+    </>);
 }

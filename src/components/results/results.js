@@ -2,11 +2,10 @@ import {useCallback, useEffect, useState} from "react";
 import Body from "../dice/body";
 import {faces} from "../../utils/mappings";
 import ResultCard from "../ui/resultCard";
-import {motion} from "framer-motion";
 import RollReducer from "./rollReducer";
 
 
-function DiceLog({results, reset, props}) {
+function Results({results, reset}) {
     const [log, setLog] = useState([]);
 
     useEffect(() => {
@@ -38,7 +37,7 @@ function DiceLog({results, reset, props}) {
                     despair: 0,
                     force: 0,
                 };
-                return <ResultCard key={`result-card-${i}`} v={v} body={(r, i2, idx) => (
+                return <ResultCard key={`result-card-${i}`} v={v} body={(r, i2) => (
                     <Body key={`dice-${i}-${i2}`} id={i2} r={r}/>
                 )} reducer={(acc, val) => {
                     return reducer(acc, val);
@@ -47,4 +46,4 @@ function DiceLog({results, reset, props}) {
         </div>);
 }
 
-export default DiceLog;
+export default Results;
