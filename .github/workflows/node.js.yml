@@ -27,7 +27,7 @@ jobs:
       uses: jsdaniell/create-json@1.1.2
       with:
         name: firebase-config.json
-        json: '{"apiKey":"${{ secrets.FB_API_KEY }}", "authDomain":"${{ secrets.FB_AUTH_DOMAIN }}", "databaseURL":"${{ secrets.FB_DB_URL }}", "projectId":"${{ secrets.FB_PROJECT_ID }}", "storageBucket":"${{ secrets.FB_STORAGE_BUCKET }}", "messagingSenderId":"${{ secrets.FB_MSG_SENDER }}","appId":"${{ secrets.FB_APP_ID }}"}'
+        json: '{"apiKey":"${{ secrets.FB_API_KEY }}", "authDomain":"${{ secrets.FB_AUTH_DOMAIN }}", "databaseURL":"${{ secrets.FB_DB_URL }}", "projectId":"${{ secrets.FB_PROJECT_ID }}", "storageBucket":"${{ secrets.FB_STORAGE_BUCKET }}", "messagingSenderId":"${{ secrets.FB_MSG_SENDER }}","appId":"${{ secrets.FB_APP_ID }}","measurementId":"${{ secrets.FB_MEASUREMENT_ID}}"}'
     - run: npm run build --if-present
     - name: deploy
       uses: reggionick/s3-deploy@v3
