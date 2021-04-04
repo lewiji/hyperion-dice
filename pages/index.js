@@ -5,8 +5,9 @@ import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDic
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
 import Results from "../src/components/results/results";
-import {useSelectedDice} from "../src/providers/selectedDiceContext";
+import {SelectedDiceProvider, useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
+import {AnimatePresence} from "framer-motion";
 
 function HomePage() {
     const fb = useFirebase({});
@@ -42,19 +43,22 @@ function HomePage() {
 
     return <>
         <Header onNameChange={setName}/>
-        {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
-            <div className={"flex-grow md:w-4/12 -mt-4"}>
-                <Results results={result}/>
-            </div>
 
-            <div className={"md:w-6/12"}>
-                <QuickSelectButtons selectedDice={selectedDice}/>
+        <AnimatePresence>
+            {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
+                <div className={"flex-grow md:w-4/12 -mt-4"}>
+                    <Results results={result}/>
+                </div>
 
-                <MapDiceToManualSelectors/>
+                <div className={"md:w-6/12"}>
+                    <QuickSelectButtons selectedDice={selectedDice}/>
 
-                <ButtonContainer onRoll={doRoll}/>
-            </div>
-        </div>)}
+                    <MapDiceToManualSelectors/>
+
+                    <ButtonContainer onRoll={doRoll}/>
+                </div>
+            </div>)}
+        </AnimatePresence>
     </>;
 }
 
