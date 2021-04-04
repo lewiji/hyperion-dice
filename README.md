@@ -4,9 +4,9 @@
 
 ## Demo
 
-[Demo Link](https://dev.dim60t8jumb6j.amplifyapp.com/)
+[Demo Link to Github CI result](http://hyperion-dice-demo.s3-website.eu-west-2.amazonaws.com/)
 
-^ note: firebase sync is disabled in the demo - to build with firebase and enable live dice roll output, add your 
+^ note: firebase sync may be disabled in the demo - to build with firebase and enable live dice roll output, add your 
 credentials in `firebase-config.json` and build/export with `yarn build`
 
 ## Features
