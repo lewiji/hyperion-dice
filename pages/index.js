@@ -1,46 +1,35 @@
 import {useCallback, useEffect, useState} from "react";
 import useFirebase from "../src/hooks/useFirebase";
-import Header from "../src/components/ui/header";
-import {MapDiceToManualSelectors} from "../src/components/dice/mapDiceToManualSelectors";
-import QuickSelectButton from "../src/components/dice/quickSelectButton";
+import Header from "../src/components/header/header";
+import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDiceToManualSelectors";
+import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import rng_tools from "../src/utils/rng";
-import ButtonContainer from "../src/components/ui/buttonContainer";
-import DiceLog from "../src/components/ui/diceLog";
+import ButtonContainer from "../src/components/rollButtons/buttonContainer";
+import DiceLog from "../src/components/log/diceLog";
+import {useSelectedDice} from "../src/providers/selectedDiceContext";
 
 function HomePage() {
     const fb = useFirebase({});
-    const [name, setName] = useState();
-    const [quickAddDice, setQuickAddDice] = useState();
+    const {state: selectedDice, dispatch} = useSelectedDice();
     const [fbSubscribed, setFbSubscribed] = useState(false);
+    const [name, setName] = useState();
     const [result, setResult] = useState();
-    const [selectedDice, setSelectedDice] = useState({});
 
     useEffect(() => {
         if (fb === undefined) return;
         if (!fbSubscribed) {
-            console.log("subscribing to fb")
             fb.on("value", (val) => {
-                console.log(val.val());
                 setResult(val.val());
             }, (err) => {
                 console.log(err);
             });
             setFbSubscribed(true);
+
+            return () => {
+                fb.off('value')
+            };
         }
     }, [fb, fbSubscribed]);
-
-    useEffect(() => {
-        const selectedDiceOverZero = Object.values(selectedDice).filter(v => {
-            console.log(v);
-            return v > 0
-        });
-    }, [selectedDice])
-
-    useEffect(() => {
-        if (quickAddDice !== undefined) {
-            setQuickAddDice(undefined);
-        }
-    }, [quickAddDice]);
 
     const doRoll = useCallback(() => {
         let results = [];
@@ -71,30 +60,15 @@ function HomePage() {
                     break;
             }
         }
-        setQuickAddDice(-1);
         let fbData = {
             name,
             selectedDice,
             results
         };
         fb.set(fbData);
-        setSelectedDice({});
-        document.getElementById("top_result")?.scrollIntoView( );
+        dispatch({type: "reset"});
+        document.getElementById("top_result")?.scrollIntoView();
     }, [fb]);
-
-    const doReset = useCallback(() => {
-        setQuickAddDice(-1);
-        setSelectedDice({});
-    }, []);
-
-    const onDiceNumChanged = useCallback(({type, num}) => {
-        setSelectedDice({...selectedDice, [type]: num});
-    }, [selectedDice]);
-
-    const getNumSelectedDice = useCallback(() => {
-        const filteredDice = Object.entries(selectedDice).filter(([k, v]) => v > 0);
-        return filteredDice.length;
-    }, [selectedDice])
 
     if (name === undefined || name === '' || name?.length < 1) {
         return <Header onNameChange={setName}/>
@@ -109,13 +83,11 @@ function HomePage() {
                 </div>
 
                 <div className={"md:w-6/12"}>
-                    <QuickSelectButton selectedDice={selectedDice} addCallback={setQuickAddDice}/>
+                    <QuickSelectButtons selectedDice={selectedDice}/>
 
-                    <MapDiceToManualSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice}
-                                              onChange={onDiceNumChanged}
-                                              onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
+                    <MapDiceToManualSelectors/>
 
-                    <ButtonContainer numSelectedDice={getNumSelectedDice()} onRoll={doRoll} onReset={doReset}/>
+                    <ButtonContainer onRoll={doRoll}/>
                 </div>
             </div>
         }
