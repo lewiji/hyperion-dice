@@ -9,7 +9,6 @@ const variants = {
 
 function Logo({named}) {
     return (<motion.div
-        layout
         variants={variants}
         animate={"animate"}
         initial={"initial"}

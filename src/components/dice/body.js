@@ -35,7 +35,6 @@ export default function Body({id, ...props}) {
     }, []);
     if (rotation === undefined) return null;
     return <motion.div
-        layout
         variants={variants}
         initial={"initial"}
         animate={"animate"}

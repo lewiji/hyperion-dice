@@ -5,6 +5,5 @@ export function RollDice(name, maxVal, quantity) {
     for (let i = 0; i < quantity; i++) {
         results.push({type: name, value: Math.floor(rng_tools.chance() * maxVal)});
     }
-
     return results;
 }

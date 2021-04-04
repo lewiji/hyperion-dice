@@ -17,9 +17,7 @@ function MyApp({Component, pageProps}) {
                      exit={"exit"}
                      className={"bg-black w-full h-screen text-white container mx-auto"}>
             <SelectedDiceProvider>
-                    <AnimateSharedLayout>
-                        <Component {...pageProps} />
-                    </AnimateSharedLayout>
+                <Component {...pageProps} />
             </SelectedDiceProvider>
         </motion.main>
     );

@@ -8,18 +8,21 @@ import Results from "../src/components/results/results";
 import {SelectedDiceProvider, useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
 import {AnimatePresence} from "framer-motion";
+import {numSides} from "../src/utils/mappings";
 
 function HomePage() {
-    const fb = useFirebase({});
+    const fb = useFirebase({roomId: 'demo'});
     const {state: selectedDice, dispatch} = useSelectedDice();
     const [fbSubscribed, setFbSubscribed] = useState(false);
     const [name, setName] = useState();
     const [result, setResult] = useState();
 
     useEffect(() => {
-        if (fb === undefined) return;
+        if (fbSubscribed || fb === undefined) return;
+        console.log("subscribing")
         if (!fbSubscribed) {
             fb.on("value", (val) => {
+                console.log(val.val());
                 setResult(val.val());
             }, (err) => {
                 console.log(err);
@@ -33,9 +36,15 @@ function HomePage() {
     }, [fb, fbSubscribed]);
 
     const doRoll = useCallback(() => {
+        console.log("rolling");
         if (Object.values(selectedDice).filter(v => v > 0).length === 0) return;
+        console.log("dice selected:")
+        console.log(selectedDice);
         const orderedDice = Object.entries(selectedDice).reverse();
-        const results = orderedDice.map(([k, v]) => RollDice(k, v));
+        const results = orderedDice.reduce((acc, [k, v]) => {
+            return [...acc, ...RollDice(k, numSides[k], v)]
+        }, []);
+        console.log(results);
         fb.set({name, selectedDice, results});
         dispatch({type: "reset"});
         document.getElementById("top_result")?.scrollIntoView();
