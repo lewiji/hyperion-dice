@@ -18,7 +18,7 @@ export const colours = {
     "proficiency": "from-yellow-300 to-yellow-500 text-black",
     "challenge": "from-red-500 to-red-900",
     "setback": "from-gray-800 to-black-900"
-}
+};
 
 export const validFaceLetters = "abcd f st xyz BCD Z"
 
@@ -30,7 +30,7 @@ export const faceToLetter = {
     "triumph": "x",
     "despair": "y",
     "force": "z"
-}
+};
 
 export const faces = {
     "difficulty": ["t", "f", "tf", "t", "", "tt", "ff", "t"],
@@ -40,5 +40,5 @@ export const faces = {
     "force": ["Z", "zz", "Z", "zz", "Z", "zz", "Z", "z", "Z", "z", "Z", "ZZ"],
     "setback": ["", "", "t", "t", "f", "f", "f", "f", "t", "t", "", ""],
     "boost": ["sa", "a", "aa", "s", "", "", "", "", "a", "s", "aa", "sa"]
-}
+};
 
