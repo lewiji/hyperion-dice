@@ -1,7 +1,9 @@
 import {dice} from "../../utils/mappings";
 import QuickSelectButton from "./quickSelectButton";
 import {motion} from "framer-motion";
-export default function QuickSelectButtons({selectedDice}) {
+import {memo} from "react";
+
+function QuickSelectButtons({selectedDice}) {
     return (<>
         <motion.div animate={{opacity: 1, scaleX: 1}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}} transition={{duration: 0.12}}
                     className={"component_title"}>_quick_select
@@ -13,3 +15,6 @@ export default function QuickSelectButtons({selectedDice}) {
         </div>
     </>);
 }
+
+const memoQSButtons = memo(QuickSelectButtons);
+export default memoQSButtons;

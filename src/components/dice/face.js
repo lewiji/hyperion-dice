@@ -1,8 +1,8 @@
 import {faces} from "../../utils/mappings";
-import {useEffect, useState} from "react";
+import {memo, useEffect, useState} from "react";
 
 
-export default function Face({dice, result, setOrder, ...props}) {
+function Face({dice, result, setOrder, ...props}) {
     const [letter, setLetter] = useState('');
     const [importance, setImportance] = useState(0);
     useEffect(() => {
@@ -23,3 +23,6 @@ export default function Face({dice, result, setOrder, ...props}) {
         {letter}
     </div>;
 }
+
+const memoFace = memo(Face);
+export default memoFace;

@@ -1,6 +1,7 @@
 import '../src/styles/globals.css'
 import {SelectedDiceProvider} from "../src/providers/selectedDiceContext";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
+import Header from "../src/components/header/header";
 
 const variantsWithOrchestration = {
     initial: {opacity: 0, scale: 0, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
@@ -17,7 +18,9 @@ function MyApp({Component, pageProps}) {
                      exit={"exit"}
                      className={"bg-black w-full h-screen text-white container mx-auto"}>
             <SelectedDiceProvider>
-                <Component {...pageProps} />
+                <AnimatePresence>
+                    <Component {...pageProps} />
+                </AnimatePresence>
             </SelectedDiceProvider>
         </motion.main>
     );

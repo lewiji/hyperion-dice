@@ -2,7 +2,7 @@ import {motion} from "framer-motion";
 import MotionButton from "../ui/motionButton";
 import {useSelectedDice} from "../../providers/selectedDiceContext";
 import Counter from "./counter";
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 
 const variants = {
     initial: {x: -20, y: -15, scale: 0},
@@ -10,7 +10,7 @@ const variants = {
     exit: {opacity: 0},
 }
 
-export default function DiceSelector({dice, index}) {
+function DiceSelector({dice, index}) {
     const {state, dispatch} = useSelectedDice();
 
     const increment = useCallback(() => {
@@ -40,3 +40,5 @@ export default function DiceSelector({dice, index}) {
     </>
 }
 
+const memoDiceSelector = memo(DiceSelector);
+export default memoDiceSelector;

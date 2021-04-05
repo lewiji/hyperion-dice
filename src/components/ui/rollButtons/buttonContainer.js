@@ -3,6 +3,7 @@ import ResetButton from "./resetButton";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
 import useIsSelectionEmpty from "../../../hooks/useIsSelectionEmpty";
+import {memo} from "react";
 
 const variants = {
     initial: {
@@ -26,7 +27,7 @@ const variants = {
     }
 }
 
-export default function ButtonContainer({onRoll}) {
+function ButtonContainer({onRoll}) {
     const disabled = useIsSelectionEmpty();
     return (
         <motion.div variants={variants} initial={"initial"} animate={disabled ? "disabled" : "animate"} exit={"exit"}
@@ -43,3 +44,6 @@ ButtonContainer.propTypes = {
     onRoll: PropTypes.func,
     onReset: PropTypes.func
 };
+
+const memoButtonContainer = memo(ButtonContainer);
+export default memoButtonContainer;

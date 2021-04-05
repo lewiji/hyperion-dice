@@ -2,7 +2,7 @@ import MotionButton from "../ui/motionButton";
 import {colours} from "../../utils/mappings";
 import {useSelectedDice} from "../../providers/selectedDiceContext";
 import {motion} from "framer-motion";
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 
 const variants = {
     initial: {x: -15, y: -25, opacity: 0},
@@ -10,7 +10,7 @@ const variants = {
     exit: {x: -5, y: -8, opacity: 0},
 }
 
-export default function QuickSelectButton({name, index}) {
+function QuickSelectButton({name, index}) {
     const {state, dispatch} = useSelectedDice();
 
     const increment = useCallback(() => {
@@ -28,3 +28,6 @@ export default function QuickSelectButton({name, index}) {
         </motion.div>
     );
 }
+
+const memoQSButton = memo(QuickSelectButton);
+export default memoQSButton;
