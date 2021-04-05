@@ -20,7 +20,7 @@ function QuickSelectButton({name, index}) {
     return (
         <motion.div variants={variants} animate={"animate"} initial={"initial"} exit={"exit"} transition={{delay: (index * 0.02)}}>
             <MotionButton key={name}
-                          className={`my-2 mx-2 w-32 px-1 h-20 bg-gradient-to-br hover:bg-gradient-to-bl ${colours[name]} `}
+                          className={`my-2 mx-2 w-36 px-1 h-16 bg-gradient-to-br hover:bg-gradient-to-bl ${colours[name]} `}
                           onClick={increment}
             >
                 {name}<br/> {state[name]}

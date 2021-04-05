@@ -52,22 +52,24 @@ function HomePage() {
         fb.set({name, selectedDice, results});
         dispatch({type: "reset"});
         setTimeout(() => {
-            document.getElementById("scroll_anchor")?.scrollIntoView({block: "nearest", behavior: "smooth", inline: "nearest"});
+            document.getElementById("scroll_anchor")?.scrollIntoView();
         }, 2);
     }, [fb]);
 
     return <>
         <Header onNameChange={setName}/>
-        {showInterface && (<div className={`flex flex-col md:flex-row mx-auto`}>
-            <div className={"flex-grow md:w-5/12"}>
-                {result && (<Results results={result}/>)}
+        {showInterface && (
+            <div className={`flex flex-col md:flex-row mx-auto`}>
+                <div className={"flex-grow md:w-5/12"}>
+                    {result && (<Results results={result}/>)}
+                </div>
+                <div className={"flex-grow md:w-5/12"}>
+                    <QuickSelectButtons selectedDice={selectedDice}/>
+                    <MapDiceToManualSelectors/>
+                    <ButtonContainer onRoll={doRoll}/>
+                </div>
             </div>
-            <div className={"flex-grow md:w-5/12"}>
-                <QuickSelectButtons selectedDice={selectedDice}/>
-                <MapDiceToManualSelectors/>
-                <ButtonContainer onRoll={doRoll}/>
-            </div>
-        </div>)}
+        )}
     </>;
 }
 

@@ -61,7 +61,7 @@
     }
 
     .dice_graphic {
-        @apply select-none p-3 text-center w-12 h-12 flex items-center justify-center shadow ring ring-2 ring-opacity-5 ring-black rounded
+        @apply select-none p-3 text-center w-14 h-14 flex items-center justify-center shadow ring ring-2 ring-opacity-10 ring-black rounded
         bg-gradient-to-br m-2;
     }
 
@@ -75,6 +75,10 @@
     @variants responsive {
         .text-shadow {
             text-shadow: 2px 2px 4px black;
+        }
+
+        .text-shadow-xs {
+            text-shadow: -1px -1px 1px indigo;
         }
 
         .text-shadow-sm {

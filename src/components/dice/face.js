@@ -18,7 +18,7 @@ function Face({dice, result, setOrder, ...props}) {
 
     }, [dice, result, faces])
     return <div
-        className={`dice_face text-xl  ${importance === 0 && "opacity-50 bg-opacity-50"} ${importance === 1 && "text-3xl"} 
+        className={`dice_face text-xl text-shadow-xs  ${importance === 0 && "opacity-50 bg-opacity-50"} ${importance === 1 && "text-3xl"} 
     ${importance === 2 && "text-xl font-semibold"}`}>
         {letter}
     </div>;
