@@ -21,7 +21,7 @@ function renderDataHumanReadable(reduction) {
 function ResultCard({body, reducer, ...props}) {
     if (props.v === undefined || props.v?.results === undefined) return null;
     return <>
-        <motion.div className={`p-1.5 bg-gradient-to-tr from-gray-900 via-indigo-900 to-indigo-800 rounded-lg my-4 overflow-hidden`}
+        <motion.div className={`p-1.5 bg-gradient-to-tr from-gray-900 via-indigo-900 to-indigo-800 rounded-lg my-4`}
                     layout
                     initial={{opacity: 0, scale: 0}}
                     animate={{opacity: 1, scale: 1}}
