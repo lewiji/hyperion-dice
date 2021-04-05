@@ -64,7 +64,7 @@ function RollButton({onRoll}) {
                        className="flex justify-end my-2  items-start">
         <motion.div variants={btn_variants}>
             <MotionButton
-                className={`h-32 w-32 md:h-48 md:w-48 rounded-full   font-bold text-xl md:text-3xl text-black pointer-events-auto
+                className={`h-28 w-28 md:h-48 md:w-48 rounded-full   font-bold text-xl md:text-3xl text-black pointer-events-auto
                         bg-opacity-100 opacity-100" bg-opacity-100 opacity-100 bg-gradient-to-tr from-indigo-600 to-indigo-900 via-pink-200`}
                 onClick={onRoll}
                 disabled={disabled}>
