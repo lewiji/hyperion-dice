@@ -3,6 +3,7 @@ import {memo} from "react";
 import {motion} from "framer-motion";
 
 function renderDataHumanReadable(reduction) {
+    if (reduction === undefined) return "";
     const success = reduction.success - reduction.failure;
     const advantage = reduction.advantage - reduction.threat;
     const triumph = reduction.triumph - reduction.despair;
@@ -18,6 +19,7 @@ function renderDataHumanReadable(reduction) {
 }
 
 function ResultCard({body, reducer, ...props}) {
+    if (props.v === undefined || props.v?.results === undefined) return null;
     return <>
         <motion.div className={`p-1.5 bg-gradient-to-tr from-gray-900 via-indigo-900 to-indigo-800 rounded-lg my-4 overflow-hidden`}
                     initial={{opacity: 0, scale: 0}}
@@ -26,10 +28,10 @@ function ResultCard({body, reducer, ...props}) {
                     transition={{duration: 0.2}}>
             <p className={"text-sm font-semibold ml-1 bg-gray-200 bg-opacity-5 w-min px-2 rounded shadow-sm text-shadow-sm"}>{props.v?.name}</p>
             <div className={"flex flex-row flex-wrap justify-center my-2 bg-purple-500 mx-1 bg-opacity-20 rounded overflow-hidden"}>
-                {props.v.results?.map(body)}
+                {props.v?.results?.map(body)}
             </div>
             <p className={"text-center p-1 bg-black bg-opacity-50 rounded-lg"}>
-                {renderDataHumanReadable(props.v.results?.reduce(reducer, props.initialState))}</p>
+                {renderDataHumanReadable(props.v?.results?.reduce(reducer, props.initialState))}</p>
         </motion.div>
     </>;
 }
