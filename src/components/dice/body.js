@@ -6,13 +6,13 @@ import {useEffect, useState} from "react";
 
 const variants = {
     initial: {
-        opacity: 0, scale: 1.1, y: 16, x: -72, rotate: 66
+        opacity: 0, scale: 0, y: 16, x: -120, rotate: 0
     },
     animate: {
         opacity: 1, scale: 1, y: 0, x: 0, rotate: 360,
     },
     exit: {
-        opacity: 0, scale: 1.2, y: 32
+        opacity: 0, scale: 0.5, y: 64
     }
 }
 
@@ -39,7 +39,7 @@ export default function Body({id, ...props}) {
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
-        transition={{type: 'spring', stiffness: 250, damping: 14, mass: 0.5, delay: id * 0.042}}
+        transition={{type: 'spring', stiffness: 220, damping: 20, mass: 1, delay: 0.05 + id * 0.04}}
         className={`dice_graphic ${colours[props.r.type]} ${`order-${order}`}`}
     >
         <Face dice={props.r.type} result={props.r.value} setOrder={setOrder}/>
