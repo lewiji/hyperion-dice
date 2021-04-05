@@ -17,7 +17,7 @@ export const colours = {
     "force": "from-white to-gray-300 text-black",
     "proficiency": "from-yellow-300 to-yellow-500 text-black",
     "challenge": "from-red-500 to-red-900",
-    "setback": "from-gray-800 to-black-900"
+    "setback": "from-gray-800 to-black"
 };
 
 export const validFaceLetters = "abcd f st xyz BCD Z"

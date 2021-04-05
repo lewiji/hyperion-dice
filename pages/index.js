@@ -42,28 +42,33 @@ function HomePage() {
         }, []);
         fb.set({name, selectedDice, results});
         dispatch({type: "reset"});
-        document.getElementById("top_result")?.scrollIntoView();
+        setTimeout(() => {
+            document.getElementById("scroll_anchor")?.scrollIntoView({block: "end", behavior: "smooth", inline: "end"});
+        }, 2);
+
     }, [fb]);
 
     return <>
         <Header onNameChange={setName}/>
         <AnimatePresence>
             {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
-                {result && (<div className={"flex-grow md:w-4/12"}>
-                    <motion.div animate={{opacity: 1, scaleX: 0.92}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}}
-                                transition={{duration: 0.12}} className={"component_title"}>
-                        _results
-                    </motion.div>
-                    <Results results={result}/>
-                </div>)}
+                <div className={"flex-grow md:w-4/12"}>
+                    {result && (<>
+                        <motion.div layout animate={{opacity: 1, scaleX: 0.92}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}}
+                                    transition={{duration: 0.12}} className={"component_title"}>
+                            _results
+                        </motion.div>
+                        <Results results={result}/>
+                    </>)}
+                </div>
 
-                <div className={"md:w-6/12"}>
+                <motion.div layout className={"md:w-6/12"}>
                     <QuickSelectButtons selectedDice={selectedDice}/>
 
                     <MapDiceToManualSelectors/>
 
                     <ButtonContainer onRoll={doRoll}/>
-                </div>
+                </motion.div>
             </div>)}
         </AnimatePresence>
     </>;
