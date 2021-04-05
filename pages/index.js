@@ -1,24 +1,26 @@
 import {useCallback, useEffect, useState} from "react";
 import useFirebase from "../src/hooks/useFirebase";
-import Header from "../src/components/ui/header";
-import {MapDiceToManualSelectors} from "../src/components/dice/mapDiceToManualSelectors";
-import QuickSelectButton from "../src/components/dice/quickSelectButton";
-import rng_tools from "../src/utils/rng";
-import ButtonContainer from "../src/components/ui/buttonContainer";
-import DiceLog from "../src/components/ui/diceLog";
+import Header from "../src/components/header/header";
+import {MapDiceToManualSelectors} from "../src/components/manualSelectors/mapDiceToManualSelectors";
+import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
+import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
+import Results from "../src/components/results/results";
+import {useSelectedDice} from "../src/providers/selectedDiceContext";
+import {RollDice} from "../src/utils/rollDice";
+import {AnimatePresence, motion} from "framer-motion";
+import {numSides} from "../src/utils/mappings";
 
 function HomePage() {
-    const fb = useFirebase({});
-    const [name, setName] = useState();
-    const [quickAddDice, setQuickAddDice] = useState();
+    const fb = useFirebase({roomId: 'demo'});
+    const {state: selectedDice, dispatch} = useSelectedDice();
     const [fbSubscribed, setFbSubscribed] = useState(false);
+    const [name, setName] = useState();
     const [result, setResult] = useState();
-    const [selectedDice, setSelectedDice] = useState({});
 
     useEffect(() => {
-        if (fb === undefined) return;
+        if (fbSubscribed || fb === undefined) return;
+        console.log("subscribing")
         if (!fbSubscribed) {
-            console.log("subscribing to fb")
             fb.on("value", (val) => {
                 console.log(val.val());
                 setResult(val.val());
@@ -26,109 +28,47 @@ function HomePage() {
                 console.log(err);
             });
             setFbSubscribed(true);
+
+            /* return () => {
+                 fb.off('value')
+             };*/
         }
     }, [fb, fbSubscribed]);
 
-    useEffect(() => {
-        const selectedDiceOverZero = Object.values(selectedDice).filter(v => {
-            console.log(v);
-            return v > 0
-        });
-    }, [selectedDice])
-
-    useEffect(() => {
-        if (quickAddDice !== undefined) {
-            setQuickAddDice(undefined);
-        }
-    }, [quickAddDice]);
-
     const doRoll = useCallback(() => {
-        let results = [];
         if (Object.values(selectedDice).filter(v => v > 0).length === 0) return;
-        const orderedDice = Object.entries(selectedDice).reverse();
-        for (let [key, value] of orderedDice) {
-            switch (key) {
-                case "ability":
-                    results = [...results, ...RollDice(key, 8, value)];
-                    break;
-                case "difficulty":
-                    results = [...results, ...RollDice(key, 8, value)];
-                    break;
-                case "boost":
-                    results = [...results, ...RollDice(key, 6, value)];
-                    break;
-                case "force":
-                    results = [...results, ...RollDice(key, 12, value)];
-                    break;
-                case "proficiency":
-                    results = [...results, ...RollDice(key, 12, value)];
-                    break;
-                case "challenge":
-                    results = [...results, ...RollDice(key, 12, value)];
-                    break;
-                case "setback":
-                    results = [...results, ...RollDice(key, 6, value)];
-                    break;
-            }
-        }
-        setQuickAddDice(-1);
-        let fbData = {
-            name,
-            selectedDice,
-            results
-        };
-        fb.set(fbData);
-        setSelectedDice({});
-        document.getElementById("top_result")?.scrollIntoView( );
+        const results = Object.entries(selectedDice).reduce((acc, [k, v]) => {
+            return [...acc, ...RollDice(k, numSides[k], v)]
+        }, []);
+        fb.set({name, selectedDice, results});
+        dispatch({type: "reset"});
+        document.getElementById("top_result")?.scrollIntoView();
     }, [fb]);
-
-    const doReset = useCallback(() => {
-        setQuickAddDice(-1);
-        setSelectedDice({});
-    }, []);
-
-    const onDiceNumChanged = useCallback(({type, num}) => {
-        setSelectedDice({...selectedDice, [type]: num});
-    }, [selectedDice]);
-
-    const getNumSelectedDice = useCallback(() => {
-        const filteredDice = Object.entries(selectedDice).filter(([k, v]) => v > 0);
-        return filteredDice.length;
-    }, [selectedDice])
-
-    if (name === undefined || name === '' || name?.length < 1) {
-        return <Header onNameChange={setName}/>
-    }
 
     return <>
         <Header onNameChange={setName}/>
-        {
-            <div className={"flex flex-col md:flex-row"}>
-                <div className={"flex-grow md:w-4/12 -mt-4"}>
-                    <DiceLog results={result}/>
+
+        <AnimatePresence>
+            {(name?.length > 0) && (<div className={`flex flex-col md:flex-row`}>
+                <div className={"flex-grow md:w-4/12"}>
+                    <motion.div animate={{opacity: 1, scaleX: 0.92}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}}
+                                transition={{duration: 0.12}} className={"component_title"}>
+                        _results
+                    </motion.div>
+                    <Results results={result}/>
                 </div>
 
                 <div className={"md:w-6/12"}>
-                    <QuickSelectButton selectedDice={selectedDice} addCallback={setQuickAddDice}/>
+                    <QuickSelectButtons selectedDice={selectedDice}/>
 
-                    <MapDiceToManualSelectors addCallback={setQuickAddDice} quickAdd={quickAddDice}
-                                              onChange={onDiceNumChanged}
-                                              onRoll={doRoll} onReset={doReset} selectedDice={selectedDice}/>
+                    <MapDiceToManualSelectors/>
 
-                    <ButtonContainer numSelectedDice={getNumSelectedDice()} onRoll={doRoll} onReset={doReset}/>
+                    <ButtonContainer onRoll={doRoll}/>
                 </div>
-            </div>
-        }
-    </>
+            </div>)}
+        </AnimatePresence>
+    </>;
 }
 
-function RollDice(name, maxVal, quantity) {
-    const results = [];
-    for (let i = 0; i < quantity; i++) {
-        results.push({type: name, value: Math.floor(rng_tools.chance() * maxVal)});
-    }
-
-    return results;
-}
 
 export default HomePage

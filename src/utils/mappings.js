@@ -1,13 +1,25 @@
+import {RollDice} from "./rollDice";
+
 export const dice = ["ability", "difficulty", "boost", "force", "proficiency", "challenge", "setback"];
+
+export const numSides = {
+    "ability": 8,
+    "difficulty": 8,
+    "boost": 6,
+    "force": 12,
+    "proficiency": 12,
+    "challenge": 12,
+    "setback": 6,
+};
 
 export const colours = {
     "ability": "from-green-400 to-green-600 text-black",
     "difficulty": "from-purple-600 to-purple-900",
-    "boost":  "from-blue-200 to-blue-500 text-black",
+    "boost": "from-blue-200 to-blue-500 text-black",
     "force": "bg-white text-black",
     "proficiency": "from-yellow-300 to-yellow-500 text-black",
-    "challenge":"from-red-500 to-red-900",
-    "setback":  "from-gray-800 to-black-900"
+    "challenge": "from-red-500 to-red-900",
+    "setback": "from-gray-800 to-black-900"
 }
 
 export const validFaceLetters = "abcd f st xyz BCD Z"

@@ -1,7 +1,7 @@
 import {faces} from "../../utils/mappings";
 
 export default function RollReducer(acc, val) {
-    const face = faces[val.type][val.value];
+    const face = faces[val?.type][val?.value];
     switch (face) {
         case "s": {
             acc.success += 1;

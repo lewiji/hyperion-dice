@@ -4,6 +4,18 @@ import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 
+const variants = {
+    initial: {
+        opacity: 0, scale: 1.1, y: 16, x: -72, rotate: 66
+    },
+    animate: {
+        opacity: 1, scale: 1, y: 0, x: 0, rotate: 360,
+    },
+    exit: {
+        opacity: 0, scale: 1.2, y: 32
+    }
+}
+
 export default function Body({id, ...props}) {
     const [order, setOrder] = useState(0);
     const [rotation, setRotation] = useState();
@@ -23,8 +35,10 @@ export default function Body({id, ...props}) {
     }, []);
     if (rotation === undefined) return null;
     return <motion.div
-        initial={{opacity: 0, scale: 1.1, y: 16, x: -72, rotate: rotation}}
-        animate={{opacity: 1, scale: 1, y: 0, x: 0, rotate: 360}}
+        variants={variants}
+        initial={"initial"}
+        animate={"animate"}
+        exit={"exit"}
         transition={{type: 'spring', stiffness: 250, damping: 14, mass: 0.5, delay: id * 0.042}}
         className={`dice_graphic ${colours[props.r.type]} ${`order-${order}`}`}
     >

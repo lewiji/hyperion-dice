@@ -1,10 +1,25 @@
 import '../src/styles/globals.css'
+import {SelectedDiceProvider} from "../src/providers/selectedDiceContext";
+import {motion} from "framer-motion";
 
-function MyApp({ Component, pageProps }) {
+const variantsWithOrchestration = {
+    initial: {opacity: 0, scale: 0, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
+    animate: {opacity: 1, scale: 1, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
+    exit: {opacity: 0, scale: 1, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
+}
+
+function MyApp({Component, pageProps}) {
     return (
-        <main className={"bg-black w-full h-screen text-white container mx-auto"}>
-            <Component {...pageProps} />
-        </main>
+        <motion.main key={"parent"}
+                     variants={variantsWithOrchestration}
+                     initial={"initial"}
+                     animate={"animate"}
+                     exit={"exit"}
+                     className={"bg-black w-full h-screen text-white container mx-auto"}>
+            <SelectedDiceProvider>
+                <Component {...pageProps} />
+            </SelectedDiceProvider>
+        </motion.main>
     );
 }
 
