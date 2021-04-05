@@ -36,7 +36,6 @@ function HomePage() {
     }, [fb, fbSubscribed]);
 
     useEffect(() => {
-        window.localStorage.setItem('name', JSON.stringify(name));
         if (name?.length) {
             setShowInterface(true);
         } else {

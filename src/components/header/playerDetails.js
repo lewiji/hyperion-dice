@@ -1,15 +1,20 @@
 import {useEffect, useRef} from "react";
 
-export function PlayerDetails({onChange}) {
+export function PlayerDetails({name, onChange}) {
     const inputRef = useRef();
     useEffect(() => {
-        if (inputRef && inputRef.current) {
-            onChange(inputRef.current?.value);
-        }
-    }, [inputRef]);
+        const localName = window.localStorage.getItem('name');
+        const parsedName = localName !== null
+            ? JSON.parse(localName)
+            : "";
+
+        onChange(parsedName);
+    }, []);
+
     return <div>
         <input type={"text"} onChange={(e) => {
             onChange(e.target.value)
-        }} ref={inputRef} className={`md:text-2xl md:font-semibold py-2`} placeholder={"Enter name here..."}/>
+        }} value={name}
+               ref={inputRef} className={`md:text-2xl md:font-semibold py-2`} placeholder={"Enter name here..."}/>
     </div>
 }
