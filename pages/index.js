@@ -52,13 +52,13 @@ function HomePage() {
         fb.set({name, selectedDice, results});
         dispatch({type: "reset"});
         setTimeout(() => {
-            document.getElementById("scroll_anchor")?.scrollIntoView({block: "end", behavior: "smooth", inline: "end"});
+            document.getElementById("scroll_anchor")?.scrollIntoView({block: "nearest", behavior: "smooth", inline: "nearest"});
         }, 2);
     }, [fb]);
 
     return <>
         <Header onNameChange={setName}/>
-        {showInterface && (<div className={`flex flex-col md:flex-row`}>
+        {showInterface && (<div className={`flex flex-col md:flex-row mx-auto`}>
             <div className={"flex-grow md:w-5/12"}>
                 {result && (<Results results={result}/>)}
             </div>
