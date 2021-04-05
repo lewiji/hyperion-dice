@@ -18,7 +18,7 @@ function Header({onNameChange, ...props}) {
     }, [name]);
     return <motion.div variants={variants} animate={name === '' ? "animate" : "named"} initial={"initial"} exit={"exit"}
                        transition={{type: 'spring', stiffness: 150, damping: 20, mass: 1}}
-                       className={"flex w-full items-center justify-evenly flex-row"}>
+                       className={"flex w-full items-center justify-evenly flex-row overflow-hidden"}>
         <Logo named={name !== ''}/>
         <PlayerDetails onChange={setName}/>
     </motion.div>;

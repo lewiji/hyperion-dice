@@ -27,7 +27,7 @@ function Results({results, reset}) {
     return (
         <div
             className={"dice_log"} id={"dice_log"}>
-            {log?.map((v, i) => {
+            {log?.slice(0, 10).map((v, i) => {
                 const initialState = {
                     success: 0,
                     failure: 0,
