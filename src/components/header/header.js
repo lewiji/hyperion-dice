@@ -2,7 +2,7 @@ import Logo from "./logo";
 import {PlayerDetails} from "./playerDetails";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
-import {memo, useCallback, useEffect, useState} from "react";
+import {memo, useCallback, useState} from "react";
 
 const variants = {
     initial: {height: 720, scaleX: 0, scaleY: 1.5, opacity: 0},
@@ -11,22 +11,23 @@ const variants = {
     exit: {height: 720, scaleX: 0, scaleY: 1.5, opacity: 0}
 }
 
-function Header({onNameChange, ...props}) {
-    const [named, setNamed] = useState(false);
+function Header({onNameChange}) {
+    const [name, setName] = useState("");
     const onChange = useCallback((e) => {
-        console.log(e);
         if (e?.length) {
-            setNamed(true);
+            setName(e);
+            window.localStorage.setItem('name', JSON.stringify(e));
         } else {
-            setNamed(false);
+            setName("");
+            window.localStorage.setItem('name', JSON.stringify(""));
         }
         onNameChange(e);
     }, [onNameChange]);
-    return <motion.div variants={variants} animate={named ? "named" : "animate"} initial={"initial"} exit={"exit"}
+    return <motion.div variants={variants} animate={name !== "" ? "named" : "animate"} initial={"initial"} exit={"exit"}
                        transition={{type: 'spring', stiffness: 150, damping: 20, mass: 1}}
                        className={"flex w-full items-center justify-evenly flex-row overflow-hidden"}>
         <Logo/>
-        <PlayerDetails onChange={onChange}/>
+        <PlayerDetails name={name} onChange={onChange}/>
     </motion.div>;
 }
 
