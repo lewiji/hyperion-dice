@@ -1,5 +1,5 @@
 # exports next.js project to static site, and deploys exported files to S3
-name: Node.js CI
+name: Node.js CI (Live)
 on:
   workflow_dispatch:
 jobs:
