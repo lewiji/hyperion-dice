@@ -2,9 +2,10 @@ import MotionButton from "../motionButton";
 import * as PropTypes from "prop-types";
 import {useSelectedDice} from "../../../providers/selectedDiceContext";
 import useIsSelectionEmpty from "../../../hooks/useIsSelectionEmpty";
+import {memo} from "react";
 
 
-export default function ResetButton() {
+function ResetButton() {
     const {dispatch} = useSelectedDice();
     const disabled = useIsSelectionEmpty();
 
@@ -23,3 +24,6 @@ ResetButton.propTypes = {
     numSelectedDice: PropTypes.number,
     onClick: PropTypes.func
 };
+
+const memoResetButton = memo(ResetButton);
+export default memoResetButton;

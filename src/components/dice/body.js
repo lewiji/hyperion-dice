@@ -2,7 +2,7 @@ import {colours} from "../../utils/mappings";
 import Face from "./face";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
-import {useEffect, useState} from "react";
+import {memo, useEffect, useState} from "react";
 
 const variants = {
     initial: {
@@ -16,7 +16,7 @@ const variants = {
     }
 }
 
-export default function Body({id, ...props}) {
+function Body({id, ...props}) {
     const [order, setOrder] = useState(0);
     const [rotation, setRotation] = useState();
     useEffect(() => {
@@ -47,3 +47,6 @@ export default function Body({id, ...props}) {
 }
 
 Body.propTypes = {r: PropTypes.any};
+
+const memoBody = memo(Body);
+export default memoBody;

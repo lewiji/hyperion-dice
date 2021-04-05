@@ -1,9 +1,27 @@
-import {useCallback, useEffect, useState} from "react";
+import {memo, useCallback, useEffect, useState} from "react";
 import Body from "../dice/body";
 import {faces} from "../../utils/mappings";
 import ResultCard from "./resultCard";
 import RollReducer from "./rollReducer";
+import {motion} from "framer-motion";
 
+const variants = {
+    initial: {
+        opacity: 0, scaleX: 0.5
+    },
+    animate: {
+        opacity: 1, scaleX: 0.92,
+        transition: {
+            duration: 0.2
+        }
+    },
+    hidden: {
+        opacity: 0, scaleX: 0.5,
+        transition: {
+            duration: 0.2
+        }
+    }
+}
 
 function Results({results, reset}) {
     const [log, setLog] = useState([]);
@@ -24,7 +42,11 @@ function Results({results, reset}) {
         return RollReducer(acc, val);
     }, [faces])
 
-    return (
+    return (<>
+        <motion.div id={"scroll_anchor"} animate={"animate"} initial={"initial"} exit={"exit"} variants={variants}
+                    className={"component_title"}>
+            _results
+        </motion.div>
         <div
             className={"dice_log"} id={"dice_log"}>
             {log?.slice(0, 3).map((v, i) => {
@@ -43,7 +65,9 @@ function Results({results, reset}) {
                     return reducer(acc, val);
                 }} initialState={initialState}/>;
             })}
-        </div>);
+        </div>
+    </>);
 }
 
-export default Results;
+const memoResult = memo(Results);
+export default memoResult;

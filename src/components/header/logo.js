@@ -7,7 +7,7 @@ const variants = {
 }
 
 
-function Logo({named}) {
+function Logo({}) {
     return (<motion.div
         variants={variants}
         animate={"animate"}

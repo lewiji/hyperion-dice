@@ -2,8 +2,9 @@ import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
 import {dice} from "../../utils/mappings";
 import DiceSelector from "./manualSelector";
+import {memo} from "react";
 
-export function MapDiceToManualSelectors() {
+function MapDiceToManualSelectors() {
     return <>
         <motion.div animate={{opacity: 1, scaleX: 1}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}} transition={{duration: 0.12}}
                     className={"component_title"}>_edit
@@ -26,3 +27,6 @@ MapDiceToManualSelectors.propTypes = {
     onChange: PropTypes.func,
     onClick: PropTypes.func
 };
+
+const memoMapDice = memo(MapDiceToManualSelectors);
+export default memoMapDice;
