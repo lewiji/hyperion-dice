@@ -52,8 +52,8 @@
     }
 
     .dice_log {
-        @apply scrollbutnoscrollbar w-11/12 md:w-10/12 max-w-sm mb-10 mx-auto bg-gray-900 py-0.5 bg-opacity-10 rounded
-        md:max-h-screen md:h-auto overflow-scroll;
+        @apply w-11/12 md:w-10/12 max-w-sm mb-10 mx-auto bg-gray-900 py-0.5 bg-opacity-10 rounded
+        md:max-h-screen md:h-auto overflow-hidden;
     }
 
     .scrollbutnoscrollbar::-webkit-scrollbar {
