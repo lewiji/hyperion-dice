@@ -1,0 +1,35 @@
+# exports next.js project to static site, and deploys exported files to S3
+name: Node.js CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    environment: 
+      name: live
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET }}
+    strategy:
+      matrix:
+        node-version: [15.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js v15.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+    - run: npm ci
+    - name: create-json
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: firebase-config.json
+        json: ${{ secrets.FB_CONFIG }}
+    - run: npm run build --if-present
+    - name: deploy
+      uses: reggionick/s3-deploy@v3
+      with:
+          folder: out
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket-region: eu-west-2
+          private: false
