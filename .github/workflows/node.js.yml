@@ -36,5 +36,4 @@ jobs:
           folder: out
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: eu-west-2
-          delete-removed: true
-          private: false
+          private: true
