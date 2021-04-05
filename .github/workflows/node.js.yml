@@ -35,3 +35,5 @@ jobs:
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: eu-west-2
           private: false
+          delete-removed: true
+          noCache: true
