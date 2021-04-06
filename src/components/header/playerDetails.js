@@ -1,7 +1,7 @@
 import {useEffect, useRef} from "react";
 import {usePlayer} from "../../providers/playerContext";
 
-export function PlayerDetails({}) {
+export function PlayerDetails() {
     const inputRef = useRef();
     const {state, dispatch} = usePlayer();
     useEffect(() => {
