@@ -59,8 +59,8 @@ function Results({results, reset}) {
                     despair: 0,
                     force: 0,
                 };
-                return <ResultCard key={`result-card-${(log.length - 1) - i}`} v={v} body={(r, i2) => (
-                    <Body key={`dice-${(log.length - 1) - i}-${i2}`} id={i2} r={r}/>
+                return <ResultCard key={`result-card-${(log.length - 1) - i}`} value={v} body={(r, i2) => (
+                    <Body key={`dice-${(log.length - 1) - i}-${i2}`} id={i2} data={r}/>
                 )} reducer={(acc, val) => {
                     return reducer(acc, val);
                 }} initialState={initialState}/>;
