@@ -3,6 +3,7 @@ import {PlayerDetails} from "./playerDetails";
 import * as PropTypes from "prop-types";
 import {motion} from "framer-motion";
 import {memo, useCallback, useState} from "react";
+import {usePlayer} from "../../providers/playerContext";
 
 const variants = {
     initial: {height: 720, scaleX: 0, scaleY: 1.5, opacity: 0},
@@ -11,27 +12,16 @@ const variants = {
     exit: {height: 720, scaleX: 0, scaleY: 1.5, opacity: 0}
 }
 
-function Header({onNameChange}) {
-    const [name, setName] = useState("");
-    const onChange = useCallback((e) => {
-        if (e?.length) {
-            setName(e);
-            window.localStorage.setItem('name', JSON.stringify(e));
-        } else {
-            setName("");
-            window.localStorage.setItem('name', JSON.stringify(""));
-        }
-        onNameChange(e);
-    }, [onNameChange]);
-    return <motion.div variants={variants} animate={name !== "" ? "named" : "animate"} initial={"initial"} exit={"exit"}
+function Header() {
+    const {state: player} = usePlayer();
+
+    return <motion.div variants={variants} animate={player?.name !== "" ? "named" : "animate"} initial={"initial"} exit={"exit"}
                        transition={{type: 'spring', stiffness: 150, damping: 20, mass: 1}}
                        className={"flex w-full items-center justify-evenly flex-row overflow-hidden"}>
         <Logo/>
-        <PlayerDetails name={name} onChange={onChange}/>
+        <PlayerDetails/>
     </motion.div>;
 }
-
-Header.propTypes = {onNameChange: PropTypes.func};
 
 const memoHeader = memo(Header);
 export default memoHeader;

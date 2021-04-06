@@ -8,12 +8,13 @@ import Results from "../src/components/results/results";
 import {useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
 import {numSides} from "../src/utils/mappings";
+import {usePlayer} from "../src/providers/playerContext";
 
 function HomePage() {
     const fb = useFirebase({roomId: 'demo'});
     const {state: selectedDice, dispatch} = useSelectedDice();
     const [fbSubscribed, setFbSubscribed] = useState(false);
-    const [name, setName] = useState();
+    const {state: player} = usePlayer();
     const [showInterface, setShowInterface] = useState(false);
     const [result, setResult] = useState();
 
@@ -36,19 +37,19 @@ function HomePage() {
     }, [fb, fbSubscribed]);
 
     useEffect(() => {
-        if (name?.length) {
+        if (player?.name?.length && player?.fbId?.length) {
             setShowInterface(true);
         } else {
             setShowInterface(false);
         }
-    }, [name]);
+    }, [player]);
 
     const doRoll = useCallback(() => {
         if (Object.values(selectedDice).filter(v => v > 0).length === 0) return;
         const results = Object.entries(selectedDice).reduce((acc, [k, v]) => {
             return [...acc, ...RollDice(k, numSides[k], v)]
         }, []);
-        fb.set({name, selectedDice, results});
+        fb.set({name: player?.name, selectedDice, results});
         dispatch({type: "reset"});
         setTimeout(() => {
             document.getElementById("scroll_anchor")?.scrollIntoView();
@@ -56,7 +57,7 @@ function HomePage() {
     }, [fb]);
 
     return <>
-        <Header onNameChange={setName}/>
+        <Header/>
         {showInterface && (
             <div className={`flex flex-col md:flex-row mx-auto`}>
                 <div className={"flex-grow md:w-5/12"}>
