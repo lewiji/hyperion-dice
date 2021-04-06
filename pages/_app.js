@@ -4,7 +4,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import Header from "../src/components/header/header";
 
 const variantsWithOrchestration = {
-    initial: {opacity: 0, scale: 0, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
+    initial: {opacity: 0, scale: 1, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
     animate: {opacity: 1, scale: 1, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
     exit: {opacity: 0, scale: 1, transition: {duration: 0.35, staggerChildren: 0.5, delayChildren: 0.5, when: "beforeChildren"}},
 }
