@@ -1,13 +1,11 @@
 # exports next.js project to static site, and deploys exported files to S3
-name: Node.js CI
+name: Node.js CI (Live)
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
     environment: 
-      name: demo
+      name: live
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
@@ -26,7 +24,7 @@ jobs:
       uses: jsdaniell/create-json@1.1.2
       with:
         name: firebase-config.json
-        json: '{"apiKey":"${{ secrets.FB_API_KEY }}", "authDomain":"${{ secrets.FB_AUTH_DOMAIN }}", "databaseURL":"${{ secrets.FB_DB_URL }}", "projectId":"${{ secrets.FB_PROJECT_ID }}", "storageBucket":"${{ secrets.FB_STORAGE_BUCKET }}", "messagingSenderId":"${{ secrets.FB_MSG_SENDER }}","appId":"${{ secrets.FB_APP_ID }}","measurementId":"${{ secrets.FB_MEASUREMENT_ID}}"}'
+        json: ${{ secrets.FB_CONFIG }}
     - run: npm run build --if-present
     - name: deploy
       uses: reggionick/s3-deploy@v3
