@@ -5,10 +5,11 @@ import MapDiceToManualSelectors from "../src/components/manualSelectors/mapDiceT
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
 import Results from "../src/components/results/results";
-import {useSelectedDice} from "../src/providers/selectedDiceContext";
+import {SelectedDiceProvider, useSelectedDice} from "../src/providers/selectedDiceContext";
 import {RollDice} from "../src/utils/rollDice";
 import {numSides} from "../src/utils/mappings";
 import {usePlayer} from "../src/providers/playerContext";
+import {AnimatePresence} from "framer-motion";
 
 function HomePage() {
     const fb = useFirebase({roomId: 'demo'});

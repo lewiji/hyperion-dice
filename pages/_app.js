@@ -18,9 +18,11 @@ function MyApp({Component, pageProps}) {
                      animate={"animate"}
                      exit={"exit"}
                      className={"bg-black w-full h-screen text-white container mx-auto"}>
-            <PlayerProvider><SelectedDiceProvider><AnimatePresence>
-                <Component {...pageProps} />
-            </AnimatePresence></SelectedDiceProvider></PlayerProvider>
+            <PlayerProvider>
+                <SelectedDiceProvider>
+                    <Component {...pageProps} />
+                </SelectedDiceProvider>
+            </PlayerProvider>
         </motion.main>
     );
 }
