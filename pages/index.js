@@ -20,6 +20,7 @@ function HomePage() {
 
     useEffect(() => {
         if (fbSubscribed || fb === undefined) return;
+        if (!player?.fbId) return;
         if (!fbSubscribed) {
             fb.on("value", (val) => {
                     setResult(val.val());
@@ -34,7 +35,7 @@ function HomePage() {
                 fb.off('value')
             }
         };
-    }, [fb, fbSubscribed]);
+    }, [fb, fbSubscribed, player]);
 
     useEffect(() => {
         if (player?.name?.length && player?.fbId?.length) {
