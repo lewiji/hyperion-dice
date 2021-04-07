@@ -4,7 +4,7 @@ import {dice} from "../../utils/mappings";
 import DiceSelector from "./manualSelector";
 import {memo} from "react";
 
-function MapDiceToManualSelectors() {
+function ManualSelectors() {
     return <>
         <motion.div animate={{opacity: 1, scaleX: 1}} initial={{opacity: 0, scaleX: 0.5}} exit={{opacity: 0}} transition={{duration: 0.12}}
                     className={"component_title"}>_edit
@@ -21,12 +21,12 @@ function MapDiceToManualSelectors() {
     </>;
 }
 
-MapDiceToManualSelectors.propTypes = {
+ManualSelectors.propTypes = {
     addCallback: PropTypes.func,
     quickAdd: PropTypes.any,
     onChange: PropTypes.func,
     onClick: PropTypes.func
 };
 
-const memoMapDice = memo(MapDiceToManualSelectors);
+const memoMapDice = memo(ManualSelectors);
 export default memoMapDice;

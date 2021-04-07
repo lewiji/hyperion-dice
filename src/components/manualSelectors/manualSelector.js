@@ -22,7 +22,7 @@ function DiceSelector({dice, index}) {
     }, [dice, dispatch]);
 
     return <>
-        <motion.div className={`h-16 w-36 flex flex-row justify-evenly -space-x-4 `}
+        <motion.div className={`h-12 w-36 flex flex-row justify-evenly -space-x-4 `}
                     variants={variants}
                     animate={"animate"}
                     initial={"initial"}

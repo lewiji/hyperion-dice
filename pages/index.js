@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import useFirebase from "../src/hooks/useFirebase";
 import Header from "../src/components/header/header";
-import MapDiceToManualSelectors from "../src/components/manualSelectors/mapDiceToManualSelectors";
+import MapDiceToManualSelectors from "../src/components/manualSelectors/manualSelectors";
 import QuickSelectButtons from "../src/components/quickSelectors/quickSelectButtons";
 import ButtonContainer from "../src/components/ui/rollButtons/buttonContainer";
 import Results from "../src/components/results/results";
