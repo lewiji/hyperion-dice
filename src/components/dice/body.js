@@ -8,15 +8,18 @@ const variants = {
     initial: {
         opacity: 0, scale: 0, y: 16, x: -120, rotate: 0
     },
-    animate: {
+    animate: id => ({
         opacity: 1, scale: 1, y: 0, x: 0, rotate: 360,
-    },
+        transition: {type: 'spring', stiffness: 220, damping: 20, mass: 1, delay: 0.1 + id * 0.04}
+    }),
     exit: {
         opacity: 0, scale: 0.5, y: 64
     }
 }
 
-function Body({id, ...props}) {
+const hoverState = {scale: 1.18, transition: {type: "spring", stiffness: 750, damping: 20, mass: 1}};
+
+function Body({id, data}) {
     const [order, setOrder] = useState(0);
     const [rotation, setRotation] = useState();
     useEffect(() => {
@@ -36,13 +39,14 @@ function Body({id, ...props}) {
     if (rotation === undefined) return null;
     return <motion.div
         variants={variants}
+        custom={id}
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
-        transition={{type: 'spring', stiffness: 220, damping: 20, mass: 1, delay: 0.05 + id * 0.04}}
-        className={`dice_graphic ${colours[props.r.type]} ${`order-${order}`}`}
+        whileHover={hoverState}
+        className={`dice_graphic ${colours[data.type]} ${`order-${order}`}`}
     >
-        <Face dice={props.r.type} result={props.r.value} setOrder={setOrder}/>
+        <Face dice={data.type} result={data.value} setOrder={setOrder}/>
     </motion.div>;
 }
 
