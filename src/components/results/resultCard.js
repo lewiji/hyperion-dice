@@ -14,9 +14,10 @@ function renderDataHumanReadable(reduction) {
     const force = reduction.force;
     let out = [];
     if (triumph > 0) out.push(`${triumph} triumph`);
+    if (triumph < 0) out.push(`${Math.abs(triumph)} despair`);
     if (force > 0) out.push(`${force} force`);
-    if (success > 0) out.push(`${success} success`);
-    else if (triumph < 1 && success < 0) out.push(`${Math.abs(success)} failure`)
+    if (success > 0 && triumph >= 0) out.push(`${success} success`);
+    else if (success < 0) out.push(`${Math.abs(success)} failure`)
     if (advantage > 0) out.push(`${advantage} advantage`);
     else if (advantage < 0) out.push(`${Math.abs(advantage)} threat`);
 
@@ -75,14 +76,13 @@ function ResultCard({body, reducer, value, ...props}) {
     return <>
         <motion.div className={`p-1.5 rounded-lg my-4`}
                     layout
-                    variants={cardVariants}
-                    initial={"initial"}
-                    animate={variant}
-                    exit={"exit"}
-                    transition={{type: "spring", duration: 0.8}}>
-            <p className={"text-sm font-semibold ml-1 bg-gray-200 bg-opacity-5 w-min px-2 rounded shadow-sm text-shadow-sm"}>{value?.name}</p>
-            <div className={"flex flex-row flex-wrap justify-center my-2 bg-gray-200 mx-1 bg-opacity-20 rounded overflow-hidden"}>
-                {value?.results?.map(body)}
+                    initial={{opacity: 0, scale: 0}}
+                    animate={{opacity: 1, scale: 1}}
+                    exit={{opacity: 0}}
+                    transition={{duration: 0.2}}>
+            <p className={"text-sm font-semibold ml-1 bg-gray-200 bg-opacity-5 w-auto px-2 rounded shadow-sm text-shadow-sm"}>{props.v?.name}</p>
+            <div className={"flex flex-row flex-wrap justify-center my-2 bg-purple-500 mx-1 bg-opacity-20 rounded overflow-hidden"}>
+                {props.v?.results?.map(body)}
             </div>
             <motion.p variants={cardVariants} initial={"initial"} animate={"animate"} exit={"exit"}
                       transition={{delay: 0.5}}
